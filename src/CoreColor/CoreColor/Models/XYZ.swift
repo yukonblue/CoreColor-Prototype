@@ -45,10 +45,14 @@ struct XYZColorSpaceImpl: XYZColorSpace {
 /// | [y]              | `[0, 1]` |
 /// | [z]              | `[0, 1]` |
 struct XYZ: Color {
+    func toSRGB() -> RGB {
+        fatalError("")
+    }
 
     let x: Float
     let y: Float
     let z: Float
     let alpha: Float
-    let space: XYZColorSpace
+//    let space: XYZColorSpace
+    let space: ColorSpace
 }

@@ -28,7 +28,7 @@ struct ColorComponentInfo {
     let isPolar: Bool
 }
 
-protocol WhitePointColorSpace {
+protocol WhitePointColorSpace: ColorSpace {
 
 //    associatedtype T: Color
 
