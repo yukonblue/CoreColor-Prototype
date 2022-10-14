@@ -11,5 +11,5 @@ protocol Color {
 
     var alpha: Float { get }
 
-    var spaces: ColorSpace { get }
+    var space: ColorSpace { get }
 }
