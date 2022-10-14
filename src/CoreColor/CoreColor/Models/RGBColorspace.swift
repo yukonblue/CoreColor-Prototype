@@ -75,7 +75,7 @@ extension Float {
 
 struct GammaTransferFunctions: RGBTransferFunctions {
 
-    private let gamma: Float
+    let gamma: Float
 
     func eotf(_ val: Float) -> Float {
         Float(val.spow(gamma))
@@ -94,5 +94,16 @@ struct LinearTransferFunctions: RGBTransferFunctions {
 
     func oetf(_ val: Float) -> Float {
         val
+    }
+}
+
+struct SRGBTransferFunctions : RGBTransferFunctions {
+
+    func oetf(_ x: Float) -> Float {
+        x <= 0.0031308 ? x * 12.92 : 1.055 * x.spow(1 / 2.4) - 0.055
+    }
+
+    func eotf(_ x: Float) -> Float {
+        x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055).spow(2.4)
     }
 }
