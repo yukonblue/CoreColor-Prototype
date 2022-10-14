@@ -10,6 +10,10 @@
 		17B69E4D28F986F8002F9992 /* CoreColor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B69E4428F986F8002F9992 /* CoreColor.framework */; };
 		17B69E5228F986F8002F9992 /* CoreColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E5128F986F8002F9992 /* CoreColorTests.swift */; };
 		17B69E5328F986F8002F9992 /* CoreColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 17B69E4728F986F8002F9992 /* CoreColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		17B69E5D28F98963002F9992 /* ColorSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E5C28F98963002F9992 /* ColorSpace.swift */; };
+		17B69E5F28F98A34002F9992 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E5E28F98A34002F9992 /* Color.swift */; };
+		17B69E6228F98B10002F9992 /* xyY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E6128F98B10002F9992 /* xyY.swift */; };
+		17B69E6428F98B6F002F9992 /* WhitePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E6328F98B6F002F9992 /* WhitePoint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +31,10 @@
 		17B69E4728F986F8002F9992 /* CoreColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreColor.h; sourceTree = "<group>"; };
 		17B69E4C28F986F8002F9992 /* CoreColorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreColorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B69E5128F986F8002F9992 /* CoreColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreColorTests.swift; sourceTree = "<group>"; };
+		17B69E5C28F98963002F9992 /* ColorSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSpace.swift; sourceTree = "<group>"; };
+		17B69E5E28F98A34002F9992 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		17B69E6128F98B10002F9992 /* xyY.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xyY.swift; sourceTree = "<group>"; };
+		17B69E6328F98B6F002F9992 /* WhitePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhitePoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +77,11 @@
 		17B69E4628F986F8002F9992 /* CoreColor */ = {
 			isa = PBXGroup;
 			children = (
+				17B69E6028F98B07002F9992 /* Models */,
 				17B69E4728F986F8002F9992 /* CoreColor.h */,
+				17B69E5C28F98963002F9992 /* ColorSpace.swift */,
+				17B69E5E28F98A34002F9992 /* Color.swift */,
+				17B69E6328F98B6F002F9992 /* WhitePoint.swift */,
 			);
 			path = CoreColor;
 			sourceTree = "<group>";
@@ -80,6 +92,14 @@
 				17B69E5128F986F8002F9992 /* CoreColorTests.swift */,
 			);
 			path = CoreColorTests;
+			sourceTree = "<group>";
+		};
+		17B69E6028F98B07002F9992 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				17B69E6128F98B10002F9992 /* xyY.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +164,7 @@
 				TargetAttributes = {
 					17B69E4328F986F8002F9992 = {
 						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1340;
 					};
 					17B69E4B28F986F8002F9992 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -191,6 +212,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17B69E5D28F98963002F9992 /* ColorSpace.swift in Sources */,
+				17B69E5F28F98A34002F9992 /* Color.swift in Sources */,
+				17B69E6428F98B6F002F9992 /* WhitePoint.swift in Sources */,
+				17B69E6228F98B10002F9992 /* xyY.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +361,7 @@
 		17B69E5728F986F8002F9992 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -356,6 +382,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +391,7 @@
 		17B69E5828F986F8002F9992 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -392,6 +420,7 @@
 		17B69E5A28F986F8002F9992 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HUG5LNJBKS;
@@ -408,6 +437,7 @@
 		17B69E5B28F986F8002F9992 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = HUG5LNJBKS;
