@@ -25,6 +25,11 @@ protocol RGBColorSpace: WhitePointColorSpace {
     var matrixFromXyz: matrix_float3x3 { get }
 }
 
+extension RGBColorSpace {
+
+
+}
+
 ///
 /// Color Component Transfer Functions (CCTFs) for encoding and decoding components of [RGB] color spaces.
 ///
