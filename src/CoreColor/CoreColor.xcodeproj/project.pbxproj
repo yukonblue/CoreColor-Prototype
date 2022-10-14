@@ -18,6 +18,7 @@
 		17B69E6828F98EC7002F9992 /* RGBColorspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E6728F98EC7002F9992 /* RGBColorspace.swift */; };
 		17B69E6A28F992A1002F9992 /* XYZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E6928F992A1002F9992 /* XYZ.swift */; };
 		17B69E6C28F9A87A002F9992 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E6B28F9A87A002F9992 /* RGB.swift */; };
+		17B69E6E28F9A9A9002F9992 /* RGBInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E6D28F9A9A9002F9992 /* RGBInt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		17B69E6728F98EC7002F9992 /* RGBColorspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBColorspace.swift; sourceTree = "<group>"; };
 		17B69E6928F992A1002F9992 /* XYZ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZ.swift; sourceTree = "<group>"; };
 		17B69E6B28F9A87A002F9992 /* RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
+		17B69E6D28F9A9A9002F9992 /* RGBInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBInt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				17B69E6728F98EC7002F9992 /* RGBColorspace.swift */,
 				17B69E6928F992A1002F9992 /* XYZ.swift */,
 				17B69E6B28F9A87A002F9992 /* RGB.swift */,
+				17B69E6D28F9A9A9002F9992 /* RGBInt.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17B69E6E28F9A9A9002F9992 /* RGBInt.swift in Sources */,
 				17B69E6828F98EC7002F9992 /* RGBColorspace.swift in Sources */,
 				17B69E5D28F98963002F9992 /* ColorSpace.swift in Sources */,
 				17B69E5F28F98A34002F9992 /* Color.swift in Sources */,
