@@ -26,15 +26,7 @@ protocol Color {
     func toLAB() -> LAB
 }
 
-struct RGB: Color {
-    func toSRGB() -> RGB {
-        fatalError("")
-    }
 
-    let alpha: Float
-    
-    let space: ColorSpace
-}
 
 struct HSL: Color {
     func toSRGB() -> RGB {
