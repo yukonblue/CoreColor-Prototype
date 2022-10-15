@@ -22,6 +22,7 @@
 		17F9294F28FAFD330087CB29 /* HSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F9294E28FAFD330087CB29 /* HSL.swift */; };
 		17F9295128FB03580087CB29 /* HSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F9295028FB03580087CB29 /* HSV.swift */; };
 		17F9295328FB09860087CB29 /* CMYK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F9295228FB09860087CB29 /* CMYK.swift */; };
+		17F9295528FB0C030087CB29 /* LAB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F9295428FB0C030087CB29 /* LAB.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		17F9294E28FAFD330087CB29 /* HSL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSL.swift; sourceTree = "<group>"; };
 		17F9295028FB03580087CB29 /* HSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSV.swift; sourceTree = "<group>"; };
 		17F9295228FB09860087CB29 /* CMYK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMYK.swift; sourceTree = "<group>"; };
+		17F9295428FB0C030087CB29 /* LAB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAB.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				17F9294E28FAFD330087CB29 /* HSL.swift */,
 				17F9295028FB03580087CB29 /* HSV.swift */,
 				17F9295228FB09860087CB29 /* CMYK.swift */,
+				17F9295428FB0C030087CB29 /* LAB.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				17B69E6828F98EC7002F9992 /* RGBColorspace.swift in Sources */,
 				17B69E5D28F98963002F9992 /* ColorSpace.swift in Sources */,
 				17B69E5F28F98A34002F9992 /* Color.swift in Sources */,
+				17F9295528FB0C030087CB29 /* LAB.swift in Sources */,
 				17B69E6428F98B6F002F9992 /* WhitePoint.swift in Sources */,
 				17B69E6628F98DDE002F9992 /* RGBColorSpaces.swift in Sources */,
 				17B69E6228F98B10002F9992 /* xyY.swift in Sources */,
