@@ -52,7 +52,9 @@ struct HSL: HueColor {
     let l: Float
     let alpha: Float
 
-    let space: ColorSpace
+    var space: ColorSpace {
+        Self.colorspace
+    }
 
     func toSRGB() -> RGB {
         guard s >= 1e-7 else {
@@ -87,7 +89,17 @@ struct HSL: HueColor {
         let v = (l + s) / 2
         let sv = (l == 0.0) ? ((2 * smin) / (lmin + smin)) : ((2 * s) / (l + s))
 
-//        return HSV(h, sv, v, alpha)
-        fatalError("TODO")
+        return HSV(h: h, s: sv, v: v, alpha: alpha)
     }
+}
+
+struct HSLColorSpace: ColorSpace {
+    let name = "HSL"
+    
+    let components: [ColorComponentInfo] = polarComponentInfo(name: "HSL")
+}
+
+extension HSL {
+
+    static let colorspace: ColorSpace = HSLColorSpace()
 }

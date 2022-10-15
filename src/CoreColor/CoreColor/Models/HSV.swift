@@ -47,11 +47,27 @@ struct HSV: HueColor {
         let l = ((2 - s) * v) / 2
         let lmin = (2 - s) * vmin
         let sl = (lmin == 2) ? 0.0 : (s * vmin) / ((lmin <= 1) ? lmin : 2 - lmin)
-//        return HSL(h: h, s: sl, l: l, alpha: alpha, space: <#ColorSpace#>)
-        fatalError("TODO")
+        return HSL(h: h, s: sl, l: l, alpha: alpha)
     }
 
     let alpha: Float
 
-    let space: ColorSpace
+    var space: ColorSpace {
+        Self.colorspace
+    }
+}
+
+func polarComponentInfo(name: String) -> [ColorComponentInfo] {
+    Array(name).map { ColorComponentInfo(name: String($0), isPolar: $0 == "H") } + [ColorComponentInfo(name: "alpha", isPolar: false)]
+}
+
+struct HSVColorSpace: ColorSpace {
+    let name = "HSV"
+    
+    let components: [ColorComponentInfo] = polarComponentInfo(name: "HSV")
+}
+
+extension HSV {
+
+    static let colorspace: ColorSpace = HSVColorSpace()
 }
