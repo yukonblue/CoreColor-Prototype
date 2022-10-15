@@ -70,6 +70,24 @@ struct HSL: HueColor {
         }
 
 //        return RGBColorSpaces.sRGB
+//        return SRGB(f(0), f(8), f(4), alpha)
+        fatalError("TODO")
+    }
+
+    func toHSV() -> HSV {
+        var s = self.s
+        var l = self.l
+
+        var smin = s
+        let lmin = max(l, 0.01)
+
+        l *= 2
+        s *= (l <= 1) ? l : 2 - l
+        smin *= (lmin <= 1) ? lmin : 2 - lmin
+        let v = (l + s) / 2
+        let sv = (l == 0.0) ? ((2 * smin) / (lmin + smin)) : ((2 * s) / (l + s))
+
+//        return HSV(h, sv, v, alpha)
         fatalError("TODO")
     }
 }
