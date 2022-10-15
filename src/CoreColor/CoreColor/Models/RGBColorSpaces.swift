@@ -74,7 +74,7 @@ struct RGBColorSpaceImpl: RGBColorSpace {
         matrixToXyz.inverse
     }
 
-    let components: [ColorComponentInfo] = rectangularComponentInfo(names: ["RGB"])
+    let components: [ColorComponentInfo] = rectangularComponentInfo(name: "RGB")
 
     let name: String
     let whitePoint: WhitePoint

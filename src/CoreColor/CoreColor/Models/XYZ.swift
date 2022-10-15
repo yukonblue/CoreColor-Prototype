@@ -7,8 +7,8 @@
 
 import Foundation
 
-internal func rectangularComponentInfo(names: [String]) -> [ColorComponentInfo] {
-    (names + ["alpha"]).map { name in ColorComponentInfo(name: name, isPolar: false) }
+internal func rectangularComponentInfo(name: String) -> [ColorComponentInfo] {
+    Array(name).map { ColorComponentInfo(name: String($0), isPolar: false) } + [ColorComponentInfo(name: "alpha", isPolar: false)]
 }
 
 protocol XYZColorSpace: WhitePointColorSpace {
@@ -29,7 +29,7 @@ struct XYZColorSpaceImpl: XYZColorSpace {
 
     let name = "XYZ"
 
-    let components = rectangularComponentInfo(names: ["XYZ"])
+    let components = rectangularComponentInfo(name: "XYZ")
 
     
 }

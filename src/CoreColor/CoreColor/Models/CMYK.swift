@@ -43,7 +43,7 @@ struct CMYKColorSpace: ColorSpace {
 
     let name = "CMYK"
 
-    let components: [ColorComponentInfo] = rectangularComponentInfo(names: ["CMYK"])
+    let components: [ColorComponentInfo] = rectangularComponentInfo(name: "CMYK")
 }
 
 extension CMYK {
