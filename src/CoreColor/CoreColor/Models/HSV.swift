@@ -12,11 +12,11 @@ import Foundation
  *
  * This is a cylindrical representation of the sRGB space used in [RGB].
  *
- * | Component  | Description                               | Range      |
- * | ---------- | ----------------------------------------- | ---------- |
- * | [h]        | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
- * | [s]        | saturation                                | `[0, 1]`   |
- * | [v]        | value                                     | `[0, 1]`   |
+ * | Component      | Description                               | Range      |
+ * | -------------- | ----------------------------------------- | ---------- |
+ * | [h]            | hue, degrees, `NaN` for monochrome colors | `[0, 360)` |
+ * | [s]            | saturation                                | `[0, 1]`   |
+ * | [v]            | value                                     | `[0, 1]`   |
  */
 struct HSV: HueColor {
 
