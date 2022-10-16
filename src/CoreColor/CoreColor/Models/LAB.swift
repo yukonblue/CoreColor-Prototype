@@ -7,6 +7,36 @@
 
 import Foundation
 
+// http://www.brucelindbloom.com/index.html?LContinuity.html
+
+/** ϵ = (6/29)^3 */
+fileprivate let CIE_E: Float = 216.0 / 24389.0
+
+/** κ = (29/3)^3 */
+fileprivate let CIE_K: Float = 24389.0 / 27.0
+
+/** ϵ × κ */
+fileprivate let CIE_E_times_K: Float = 8.0
+
+protocol LABColorSpace: WhitePointColorSpace {
+
+    init(whitePoint: WhitePoint)
+}
+
+struct LABColorSpaceImpl: LABColorSpace {
+
+    let whitePoint: WhitePoint
+
+//    init(whitePoint: WhitePoint) {
+//        self.whitePoint = whitePoint
+//    }
+
+    let name: String = "LAB"
+
+    let components: [ColorComponentInfo] = rectangularComponentInfo(name: "LAB")
+}
+
+
 /**
  * CIE LAB color space, also referred to as `CIE 1976 L*a*b*`.
  *
@@ -36,6 +66,28 @@ struct LAB: Color {
     }
 
     func toXYZ() -> XYZ {
+        // http://www.brucelindbloom.com/Eqn_Lab_to_XYZ.html
+        guard let labColorSpace = self.space as? LABColorSpace else {
+            fatalError("TODO")
+        }
+        let xyzSpace = XYZColorSpaceImpl(whitePoint: labColorSpace.whitePoint)
+        guard self.l != 0.0 else {
+//            return xyzSpace(0.0, 0.0, 0.0)
+            fatalError("TODO")
+        }
+
+        let fy = (l + 16) / 116.0
+        let fz = fy - b / 200.0
+        let fx = a / 500.0 + fy
+
+        let yr = l > CIE_E_times_K ? pow(fy, 3.0) : l / CIE_K
+        let it = pow(fz, 3.0)
+        let zr = (it > CIE_E) ? it : (116 * fz - 16) / CIE_K
+        let it2 = pow(fx, 3.0)
+        let xr = (it2 > CIE_E) ? it2 : (116 * fx - 16) / CIE_K
+
+        let wp = labColorSpace.whitePoint.chromaticity
+//        return xyzSpace(xr * wp.X, yr * wp.Y, zr * wp.Z, alpha)
         fatalError("TODO")
     }
 
