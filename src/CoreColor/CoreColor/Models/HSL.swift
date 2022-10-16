@@ -65,15 +65,15 @@ struct HSL: HueColor {
         let sD = Double(s)
         let lD = Double(l)
 
-        func f(nD: Double) -> Float {
+        func f(_ nD: Double) -> Float {
             let kD = (nD + hD).truncatingRemainder(dividingBy: 12.0)
             let aD = sD * min(lD, 1.0 - lD)
             return Float((lD - aD * min(kD - 3.0, 9.0 - kD, 1.0).coerceAtLeast(minimumValue: -1.0)))
         }
 
 //        return RGBColorSpaces.sRGB
-//        return SRGB(f(0), f(8), f(4), alpha)
-        fatalError("TODO")
+        return RGB(r: f(0), g: f(8), b: f(4), alpha: alpha, space: RGBColorSpaces.sRGB)
+//        fatalError("TODO")
     }
 
     func toHSV() -> HSV {

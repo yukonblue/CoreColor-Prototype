@@ -73,7 +73,7 @@ extension RGB {
 extension Double {
 
     var normalizeDeg: Double {
-        fatalError("TODO")
+        (self.truncatingRemainder(dividingBy: 360.0) + 360.0).truncatingRemainder(dividingBy: 360.0)
     }
 }
 
