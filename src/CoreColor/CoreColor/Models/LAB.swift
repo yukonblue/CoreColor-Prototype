@@ -36,6 +36,18 @@ struct LABColorSpaceImpl: LABColorSpace {
     let components: [ColorComponentInfo] = rectangularComponentInfo(name: "LAB")
 }
 
+enum LABColorSpaces {
+
+    ///
+    /// An [LAB] color space calculated relative to [Illuminant.D50]
+    ///
+    static let LAB50: LABColorSpace = LABColorSpaceImpl(whitePoint: Illuminant.D50)
+
+    ///
+    /// An [LAB] color space calculated relative to [Illuminant.D65]
+    ///
+    static let LAB65: LABColorSpace = LABColorSpaceImpl(whitePoint: Illuminant.D65)
+}
 
 /**
  * CIE LAB color space, also referred to as `CIE 1976 L*a*b*`.
