@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1731AF4128FC4C8500B16F79 /* LABTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1731AF4028FC4C8500B16F79 /* LABTests.swift */; };
 		17B69E4D28F986F8002F9992 /* CoreColor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B69E4428F986F8002F9992 /* CoreColor.framework */; };
 		17B69E5228F986F8002F9992 /* CoreColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E5128F986F8002F9992 /* CoreColorTests.swift */; };
 		17B69E5328F986F8002F9992 /* CoreColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 17B69E4728F986F8002F9992 /* CoreColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1731AF4028FC4C8500B16F79 /* LABTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABTests.swift; sourceTree = "<group>"; };
 		17B69E4428F986F8002F9992 /* CoreColor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreColor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B69E4728F986F8002F9992 /* CoreColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreColor.h; sourceTree = "<group>"; };
 		17B69E4C28F986F8002F9992 /* CoreColorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreColorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				17B69E5128F986F8002F9992 /* CoreColorTests.swift */,
+				1731AF4028FC4C8500B16F79 /* LABTests.swift */,
 			);
 			path = CoreColorTests;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				17B69E5228F986F8002F9992 /* CoreColorTests.swift in Sources */,
+				1731AF4128FC4C8500B16F79 /* LABTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

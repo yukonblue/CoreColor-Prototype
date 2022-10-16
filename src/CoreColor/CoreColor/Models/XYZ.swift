@@ -23,6 +23,19 @@ extension XYZColorSpace {
     }
 }
 
+enum XYZColorSpaces {
+
+    ///
+    /// An [XYZ] color space calculated relative to [Illuminant.D65]
+    ///
+    static let XYZ65: XYZColorSpace = XYZColorSpaceImpl(whitePoint: Illuminant.D65)
+
+    ///
+    /// An [XYZ] color space calculated relative to [Illuminant.D50]
+    ///
+    static let XYZ50: XYZColorSpace = XYZColorSpaceImpl(whitePoint: Illuminant.D50)
+}
+
 struct XYZColorSpaceImpl: XYZColorSpace {
 
     let whitePoint: WhitePoint

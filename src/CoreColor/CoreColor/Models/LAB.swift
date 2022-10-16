@@ -84,8 +84,7 @@ struct LAB: Color {
         }
         let xyzSpace = XYZColorSpaceImpl(whitePoint: labColorSpace.whitePoint)
         guard self.l != 0.0 else {
-//            return xyzSpace(0.0, 0.0, 0.0)
-            fatalError("TODO")
+            return xyzSpace.createModel(x: 0.0, y: 0.0, z: 0.0)
         }
 
         let fy = (l + 16) / 116.0
@@ -100,7 +99,8 @@ struct LAB: Color {
 
         let wp = labColorSpace.whitePoint.chromaticity
 //        return xyzSpace(xr * wp.X, yr * wp.Y, zr * wp.Z, alpha)
-        fatalError("TODO")
+
+        return xyzSpace.createModel(x: xr * wp.X, y: yr * wp.Y, z: zr * wp.Z, alpha: self.alpha)
     }
 
     let alpha: Float
