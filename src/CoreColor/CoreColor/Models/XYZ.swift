@@ -131,3 +131,26 @@ struct XYZ: Color {
         return XYZ(x: v.x, y: v.y, z: v.z, alpha: self.alpha, space: self.space)
     }
 }
+
+extension XYZ {
+
+    func toLAB() -> LAB {
+        func f(_ t: Float) -> Float {
+            t > CIE_E ? (cbrt(t)) : ((t * CIE_K + 16) / 116)
+        }
+
+        guard let xyzColorSpace = space as? XYZColorSpace else {
+            fatalError("")
+        }
+
+        let fx = f(x / xyzColorSpace.whitePoint.chromaticity.X)
+        let fy = f(y / xyzColorSpace.whitePoint.chromaticity.Y)
+        let fz = f(z / xyzColorSpace.whitePoint.chromaticity.Z)
+
+        let l = (116 * fy) - 16
+        let a = 500 * (fx - fy)
+        let b = 200 * (fy - fz)
+
+        return LAB(l: l, a: a, b: b, alpha: self.alpha, space: LABColorSpaceImpl(whitePoint: xyzColorSpace.whitePoint))
+    }
+}

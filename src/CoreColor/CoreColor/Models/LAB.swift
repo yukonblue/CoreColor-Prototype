@@ -10,13 +10,13 @@ import Foundation
 // http://www.brucelindbloom.com/index.html?LContinuity.html
 
 /** ϵ = (6/29)^3 */
-fileprivate let CIE_E: Float = 216.0 / 24389.0
+internal let CIE_E: Float = 216.0 / 24389.0
 
 /** κ = (29/3)^3 */
-fileprivate let CIE_K: Float = 24389.0 / 27.0
+internal let CIE_K: Float = 24389.0 / 27.0
 
 /** ϵ × κ */
-fileprivate let CIE_E_times_K: Float = 8.0
+internal let CIE_E_times_K: Float = 8.0
 
 protocol LABColorSpace: WhitePointColorSpace {
 
