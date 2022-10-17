@@ -148,3 +148,22 @@ extension RGB {
         return block(h.normalizeDeg, minD, maxD, chroma)
     }
 }
+
+extension RGB {
+
+    func convert(toRGBColorSpace dstRGBColorSpace: RGBColorSpace) -> RGB {
+        guard let srcRGBColorSpace = self.space as? RGBColorSpace else {
+            fatalError("")
+        }
+        let f = RGBColorSpaces.sRGB.transferFunctions
+        if srcRGBColorSpace === dstRGBColorSpace {
+            return self
+        } else if srcRGBColorSpace === RGBColorSpaces.sRGB && dstRGBColorSpace === RGBColorSpaces.LinearSRGB {
+            return RGB(r: f.eotf(r),g: f.eotf(g), b: f.eotf(b), alpha: self.alpha, space: dstRGBColorSpace)
+        } else if srcRGBColorSpace === RGBColorSpaces.LinearSRGB && dstRGBColorSpace === RGBColorSpaces.sRGB {
+            return RGB(r: f.oetf(r), g: f.oetf(g), b: f.oetf(b), alpha: self.alpha, space: dstRGBColorSpace)
+        } else {
+            return self.toXYZ().to(rgbSpace: dstRGBColorSpace)
+        }
+    }
+}

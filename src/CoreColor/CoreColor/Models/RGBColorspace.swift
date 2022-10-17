@@ -8,7 +8,7 @@
 import Foundation
 import simd
 
-protocol RGBColorSpace: WhitePointColorSpace {
+protocol RGBColorSpace: WhitePointColorSpace, AnyObject {
 
     ///
     /// Transfer functions for the RGB colorspace.

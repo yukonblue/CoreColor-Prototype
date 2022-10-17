@@ -62,9 +62,38 @@ enum RGBColorSpaces {
         g: xyY(x: 0.21, y: 0.71),
         b: xyY(x: 0.15, y: 0.06)
     )
+
+    /**
+     * Display P3 color space
+     *
+     * The CSS Color Module 4 calls this space `display-p3`.
+     *
+     * ### References
+     * - [Apple](https://developer.apple.com/documentation/coregraphics/cgcolorspace/1408916-displayp3)
+     * - [RP 431-2:2011](https://ieeexplore.ieee.org/document/7290729)
+     * - [Digital Cinema System Specification - Version 1.1](https://www.dcimovies.com/archives/spec_v1_1/DCI_DCinema_System_Spec_v1_1.pdf)
+     */
+    static let DisplayP3: RGBColorSpace = RGBColorSpaceImpl(
+        name: "Display P3",
+        whitePoint: Illuminant.D65,
+        transferFunctions: SRGBTransferFunctions(),
+        r: xyY(x: 0.680, y: 0.320),
+        g: xyY(x: 0.265, y: 0.690),
+        b: xyY(x: 0.150, y: 0.060)
+    )
 }
 
-struct RGBColorSpaceImpl: RGBColorSpace {
+// TODO: Decide value-reference semantics on this
+class RGBColorSpaceImpl: RGBColorSpace {
+
+    init(name: String, whitePoint: WhitePoint, transferFunctions: RGBTransferFunctions, r: xyY, g: xyY, b: xyY) {
+        self.name = name
+        self.whitePoint = whitePoint
+        self.transferFunctions = transferFunctions
+        self.r = r
+        self.g = g
+        self.b = b
+    }
 
     var matrixToXyz: matrix_float3x3 {
         rgbToXyzMatrix(whitePoint: whitePoint, r: r, g: g, b: b)

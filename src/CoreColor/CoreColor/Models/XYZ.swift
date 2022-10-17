@@ -93,7 +93,7 @@ struct XYZ: Color {
         to(rgbSpace: RGBColorSpaces.sRGB)
     }
 
-    private func to(rgbSpace: RGBColorSpace) -> RGB {
+    func to(rgbSpace: RGBColorSpace) -> RGB {
         let xyz = adapt(toSpace: XYZColorSpaceImpl(whitePoint: rgbSpace.whitePoint))
         let xyz_v3 = simd_float3(x: xyz.x, y: xyz.y, z: xyz.z)
 
