@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import simd
 
 /// The RGB color model, using the [sRGB][SRGB] color space by default.
 
@@ -54,19 +55,55 @@ struct RGB: Color {
 extension RGB {
 
     func toHSL() -> HSL {
-        fatalError("To be implemented ...")
+        srgbHueMinMaxChroma { (h, mn, mx, chroma) -> HSL in
+            let h = Float(h)
+            let mn = Float(mn)
+            let mx = Float(mx)
+            let chroma = Float(chroma)
+            let l = (mn + mx) / 2.0
+            let s: Float
+            if mn == mx {
+                s = 0.0
+            } else if l <= 0.5 {
+                s = chroma / (mn + mx)
+            } else {
+                s = chroma / (2 - mx - mn)
+            }
+            return HSL(h: h, s: s, l: l, alpha: self.alpha)
+        }
     }
 
     func toHSV() -> HSV {
-        fatalError("To be implemented ...")
+        srgbHueMinMaxChroma { (h, _, mx, chroma) -> HSV in
+            let h = Float(h)
+            let mx = Float(mx)
+            let chroma = Float(chroma)
+            let s: Float = mx == 0.0 ? 0.0 : (chroma / mx)
+            let v = mx
+            return HSV(h: h, s: s, v: v, alpha: self.alpha)
+        }
     }
 
     func toXYZ() -> XYZ {
-        fatalError("To be implemented ...")
+        guard let rgbColorSpace = self.space as? RGBColorSpace else {
+            fatalError("")
+        }
+        let f = rgbColorSpace.transferFunctions.eotf
+
+        let v = rgbColorSpace.matrixToXyz * simd_float3(f(self.r), f(self.g), f(self.b))
+
+        return XYZ(x: v.x, y: v.y, z: v.z, alpha: self.alpha, space: XYZColorSpaceImpl(whitePoint: rgbColorSpace.whitePoint))
     }
 
     func toCMYK() -> CMYK {
-        fatalError("To be implemented ...")
+        let k = 1 - max(r, b, g)
+        if k == 1.0 {
+            return CMYK(c: 0, m: 0, y: 0, k: k, alpha: self.alpha)
+        }
+        let c = (1 - r - k) / (1 - k)
+        let m = (1 - g - k) / (1 - k)
+        let y = (1 - b - k) / (1 - k)
+        return CMYK(c: c, m: m, y: y, k:k, alpha: self.alpha)
     }
 }
 

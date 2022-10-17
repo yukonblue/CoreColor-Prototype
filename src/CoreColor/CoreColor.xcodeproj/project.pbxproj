@@ -10,6 +10,7 @@
 		1711724428FC56ED00E5C70D /* HSLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1711724328FC56ED00E5C70D /* HSLTests.swift */; };
 		171A376D28FD82C800DAE73B /* HSVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A376C28FD82C800DAE73B /* HSVTests.swift */; };
 		171A376F28FD843900DAE73B /* XYZTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A376E28FD843900DAE73B /* XYZTests.swift */; };
+		171A377128FD906900DAE73B /* RGBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A377028FD906900DAE73B /* RGBTests.swift */; };
 		1731AF4128FC4C8500B16F79 /* LABTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1731AF4028FC4C8500B16F79 /* LABTests.swift */; };
 		1731AF4328FC536600B16F79 /* CMYKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1731AF4228FC536600B16F79 /* CMYKTests.swift */; };
 		17B69E4D28F986F8002F9992 /* CoreColor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B69E4428F986F8002F9992 /* CoreColor.framework */; };
@@ -44,6 +45,7 @@
 		1711724328FC56ED00E5C70D /* HSLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLTests.swift; sourceTree = "<group>"; };
 		171A376C28FD82C800DAE73B /* HSVTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSVTests.swift; sourceTree = "<group>"; };
 		171A376E28FD843900DAE73B /* XYZTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZTests.swift; sourceTree = "<group>"; };
+		171A377028FD906900DAE73B /* RGBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBTests.swift; sourceTree = "<group>"; };
 		1731AF4028FC4C8500B16F79 /* LABTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABTests.swift; sourceTree = "<group>"; };
 		1731AF4228FC536600B16F79 /* CMYKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMYKTests.swift; sourceTree = "<group>"; };
 		17B69E4428F986F8002F9992 /* CoreColor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreColor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +125,7 @@
 				1711724328FC56ED00E5C70D /* HSLTests.swift */,
 				171A376C28FD82C800DAE73B /* HSVTests.swift */,
 				171A376E28FD843900DAE73B /* XYZTests.swift */,
+				171A377028FD906900DAE73B /* RGBTests.swift */,
 			);
 			path = CoreColorTests;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				1731AF4328FC536600B16F79 /* CMYKTests.swift in Sources */,
 				171A376F28FD843900DAE73B /* XYZTests.swift in Sources */,
 				1731AF4128FC4C8500B16F79 /* LABTests.swift in Sources */,
+				171A377128FD906900DAE73B /* RGBTests.swift in Sources */,
 				1711724428FC56ED00E5C70D /* HSLTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
