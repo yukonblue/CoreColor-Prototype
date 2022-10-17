@@ -38,8 +38,7 @@ struct HSV: HueColor {
             return Float((vD - vD * sD * min(kD, 4.0 - kD, 1.0).coerceAtLeast(minimumValue: 0.0)))
         }
 
-//        return SRGB(f(5), f(3), f(1), alpha)
-        fatalError("TODO")
+        return RGB(r: f(5), g: f(3), b: f(1), alpha: self.alpha, space: RGBColorSpaces.sRGB)
     }
 
     func toHSL() -> HSL {
