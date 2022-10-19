@@ -26,6 +26,8 @@ protocol Color {
     func toXYZ() -> XYZ
 
     func toLAB() -> LAB
+
+    func toLUV() -> LUV
 }
 
 extension Color {
@@ -48,5 +50,9 @@ extension Color {
 
     func toLAB() -> LAB {
         self.toXYZ().toLAB()
+    }
+
+    func toLUV() -> LUV {
+        self.toXYZ().toLUV()
     }
 }

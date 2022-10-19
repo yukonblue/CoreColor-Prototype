@@ -137,3 +137,25 @@ extension XYZ {
         return LAB(l: l, a: a, b: b, alpha: self.alpha, space: LABColorSpace(whitePoint: xyzColorSpace.whitePoint))
     }
 }
+
+extension XYZ {
+
+    func toLUV() -> LUV {
+        let wp = space.whitePoint.chromaticity
+        let denominator = x + 15.0 * y + 3.0 * z
+        let uPrime = denominator == 0.0 ? 0.0 : (4 * x) / denominator
+        let vPrime = denominator == 0.0 ? 0.0 : (9 * y) / denominator
+
+        let denominatorReference = wp.X + 15.0 * wp.Y + 3.0 * wp.Z
+        let uPrimeReference = (4.0 * wp.X) / denominatorReference
+        let vPrimeReference = (9.0 * wp.Y) / denominatorReference
+
+        let yr = y / wp.Y
+        let l = yr > CIE_E ? (116 * cbrt(yr) - 16) : (CIE_K * yr)
+
+        let u = 13.0 * l * (uPrime - uPrimeReference)
+        let v = 13.0 * l * (vPrime - vPrimeReference)
+
+        return LUV(l: min(l, 100.0), u: u, v: v, alpha: self.alpha, space: LUVColorSpace(whitePoint: space.whitePoint))
+    }
+}

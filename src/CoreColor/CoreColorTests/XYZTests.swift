@@ -31,6 +31,33 @@ class XYZTests: XCTestCase {
                              lab: LAB(l: 76.06926101, a: -78.02949711, b: -34.99756832, alpha: 1.0, space: LABColorSpaces.LAB50))
     }
 
+    func test_XYZ_to_LUV() throws {
+        try check_XYZ_to_LUV(xyz: XYZ(x: 0.00, y: 0.00, z: 0.00, alpha: 1.0, space: XYZColorSpaces.XYZ65),
+                             luv: LUV(l: 0.00, u: 0.00, v: 0.00, alpha: 1.0, space: LUVColorSpaces.LUV65))
+
+        try check_XYZ_to_LUV(xyz: XYZ(x: 0.18, y: 0.18, z: 0.18, alpha: 1.0, space: XYZColorSpaces.XYZ65),
+                             luv: LUV(l: 49.49610761, u: 8.16943249, v: 3.4516013, alpha: 1.0, space: LUVColorSpaces.LUV65))
+
+        try check_XYZ_to_LUV(xyz: XYZ(x: 0.40, y: 0.50, z: 0.60, alpha: 1.0, space: XYZColorSpaces.XYZ65),
+                             luv: LUV(l: 76.06926101, u: -32.51658072, v: -4.35360349, alpha: 1.0, space: LUVColorSpaces.LUV65))
+
+        try check_XYZ_to_LUV(xyz: XYZ(x: 1.00, y: 1.00, z: 1.00, alpha: 1.0, space: XYZColorSpaces.XYZ65),
+                             luv: LUV(l: 100.0, u: 16.50520189, v: 6.97348026, alpha: 1.0, space: LUVColorSpaces.LUV65))
+
+        // XYZ50 -> LUV50
+        try check_XYZ_to_LUV(xyz: XYZ(x: 0.25, y: 0.5, z: 0.75, alpha: 1.0, space: XYZColorSpaces.XYZ50),
+                             luv: LUV(l: 76.06926101, u: -107.96735088, v: -37.65708044, alpha: 1.0, space: LUVColorSpaces.LUV50))
+    }
+
+    func check_XYZ_to_LUV(xyz: XYZ, luv: LUV) throws {
+        let converted = xyz.toLUV()
+        assertEqual(converted.l, luv.l, accuracy: 1e-5)
+        assertEqual(converted.u, luv.u, accuracy: 1e-4) // TODO: More accuracy
+        assertEqual(converted.v, luv.v, accuracy: 1e-4) // TODO: More accuracy
+        assertEqual(converted.alpha, luv.alpha, accuracy: 1e-5)
+        // TODO: Check colorspace!
+    }
+
     func check_XYZ_to_RGB(xyz: XYZ, rgb: RGB) throws {
         try assertIsSameRGB(xyz.toSRGB(), rgb)
     }
@@ -53,5 +80,14 @@ class XYZTests: XCTestCase {
         XCTAssertEqual(a.b, b.b, accuracy: 1e-5)
         XCTAssertEqual(a.alpha, b.alpha, accuracy: 1e-5)
         // TODO: Check colorspace!
+    }
+
+    private func assertEqual(_ a: Float, _ b: Float, accuracy: Float = 1e-5) {
+        switch (a.isNaN, b.isNaN) {
+        case (true, true):
+            break
+        default:
+            XCTAssertEqual(a, b, accuracy: accuracy)
+        }
     }
 }
