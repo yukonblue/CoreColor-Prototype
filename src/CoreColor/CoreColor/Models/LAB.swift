@@ -18,18 +18,14 @@ internal let CIE_K: Float = 24389.0 / 27.0
 /** ϵ × κ */
 internal let CIE_E_times_K: Float = 8.0
 
-protocol LABColorSpace: WhitePointColorSpace {
+protocol LABColorSpaceRepresentable: WhitePointColorSpace {
 
     init(whitePoint: WhitePoint)
 }
 
-struct LABColorSpaceImpl: LABColorSpace {
+struct LABColorSpace: LABColorSpaceRepresentable {
 
     let whitePoint: WhitePoint
-
-//    init(whitePoint: WhitePoint) {
-//        self.whitePoint = whitePoint
-//    }
 
     let name: String = "LAB"
 
@@ -41,12 +37,12 @@ enum LABColorSpaces {
     ///
     /// An [LAB] color space calculated relative to [Illuminant.D50]
     ///
-    static let LAB50: LABColorSpace = LABColorSpaceImpl(whitePoint: Illuminant.D50)
+    static let LAB50: LABColorSpace = LABColorSpace(whitePoint: Illuminant.D50)
 
     ///
     /// An [LAB] color space calculated relative to [Illuminant.D65]
     ///
-    static let LAB65: LABColorSpace = LABColorSpaceImpl(whitePoint: Illuminant.D65)
+    static let LAB65: LABColorSpace = LABColorSpace(whitePoint: Illuminant.D65)
 }
 
 /**
@@ -79,12 +75,12 @@ struct LAB: Color {
 
     func toXYZ() -> XYZ {
         // http://www.brucelindbloom.com/Eqn_Lab_to_XYZ.html
-        guard let labColorSpace = self.space as? LABColorSpace else {
-            fatalError("TODO")
-        }
-        let xyzSpace = XYZColorSpaceImpl(whitePoint: labColorSpace.whitePoint)
+        let labColorSpace = self.space
+
+        let xyzSpace = XYZColorSpace(whitePoint: self.space.whitePoint)
+
         guard self.l != 0.0 else {
-            return xyzSpace.createModel(x: 0.0, y: 0.0, z: 0.0)
+            return XYZ(x: 0.0, y: 0.0, z: 0.0, alpha: self.alpha, space: xyzSpace)
         }
 
         let fy = (l + 16) / 116.0
@@ -98,12 +94,11 @@ struct LAB: Color {
         let xr = (it2 > CIE_E) ? it2 : (116 * fx - 16) / CIE_K
 
         let wp = labColorSpace.whitePoint.chromaticity
-//        return xyzSpace(xr * wp.X, yr * wp.Y, zr * wp.Z, alpha)
-
-        return xyzSpace.createModel(x: xr * wp.X, y: yr * wp.Y, z: zr * wp.Z, alpha: self.alpha)
+        
+        return XYZ(x: xr * wp.X, y: yr * wp.Y, z: zr * wp.Z, alpha: self.alpha, space: xyzSpace)
     }
 
     let alpha: Float
 
-    let space: ColorSpace
+    let space: LABColorSpace
 }

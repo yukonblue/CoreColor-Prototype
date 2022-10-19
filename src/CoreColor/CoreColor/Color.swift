@@ -9,10 +9,12 @@ import Foundation
 
 protocol Color {
 
+    associatedtype AssociatedColorSpace: ColorSpace
+
     var alpha: Float { get }
 
-    var space: ColorSpace { get }
-    
+    var space: AssociatedColorSpace { get }
+
     func toSRGB() -> RGB
 
     func toHSL() -> HSL

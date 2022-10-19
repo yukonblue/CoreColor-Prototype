@@ -51,7 +51,7 @@ struct HSV: HueColor {
 
     let alpha: Float
 
-    var space: ColorSpace {
+    var space: HSVColorSpace {
         Self.colorspace
     }
 }
@@ -68,5 +68,5 @@ struct HSVColorSpace: ColorSpace {
 
 extension HSV {
 
-    static let colorspace: ColorSpace = HSVColorSpace()
+    static let colorspace: HSVColorSpace = HSVColorSpace()
 }

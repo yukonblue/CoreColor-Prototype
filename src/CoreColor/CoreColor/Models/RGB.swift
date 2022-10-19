@@ -16,8 +16,7 @@ struct RGB: Color {
     let g: Float
     let b: Float
     let alpha: Float
-//    let space: RGBColorSpace
-    let space: ColorSpace
+    let space: RGBColorSpace
 
     ///
     /// The red channel scaled to [0, 255].
@@ -48,6 +47,7 @@ struct RGB: Color {
     }
 
     func toSRGB() -> RGB {
+        // TODO
         fatalError("")
     }
 }
@@ -85,14 +85,11 @@ extension RGB {
     }
 
     func toXYZ() -> XYZ {
-        guard let rgbColorSpace = self.space as? RGBColorSpace else {
-            fatalError("")
-        }
-        let f = rgbColorSpace.transferFunctions.eotf
+        let f = self.space.transferFunctions.eotf
 
-        let v = rgbColorSpace.matrixToXyz * simd_float3(f(self.r), f(self.g), f(self.b))
+        let v = self.space.matrixToXyz * simd_float3(f(self.r), f(self.g), f(self.b))
 
-        return XYZ(x: v.x, y: v.y, z: v.z, alpha: self.alpha, space: XYZColorSpaceImpl(whitePoint: rgbColorSpace.whitePoint))
+        return XYZ(x: v.x, y: v.y, z: v.z, alpha: self.alpha, space: XYZColorSpace(whitePoint: self.space.whitePoint))
     }
 
     func toCMYK() -> CMYK {
@@ -152,9 +149,8 @@ extension RGB {
 extension RGB {
 
     func convert(toRGBColorSpace dstRGBColorSpace: RGBColorSpace) -> RGB {
-        guard let srcRGBColorSpace = self.space as? RGBColorSpace else {
-            fatalError("")
-        }
+        let srcRGBColorSpace = self.space
+
         let f = RGBColorSpaces.sRGB.transferFunctions
         if srcRGBColorSpace === dstRGBColorSpace {
             return self

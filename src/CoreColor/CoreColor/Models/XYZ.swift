@@ -31,18 +31,12 @@ internal func rectangularComponentInfo(name: String) -> [ColorComponentInfo] {
     Array(name).map { ColorComponentInfo(name: String($0), isPolar: false) } + [ColorComponentInfo(name: "alpha", isPolar: false)]
 }
 
-protocol XYZColorSpace: WhitePointColorSpace {
-
-    func createModel(x: Float, y: Float, z: Float, alpha: Float) -> XYZ
+protocol XYZColorSpaceRepresentable: WhitePointColorSpace {
 
     func chromaticAdaptationMatrix(for srcWp: xyY, xyzToLms: matrix_float3x3, lmsToXyz: matrix_float3x3) -> matrix_float3x3
 }
 
-extension XYZColorSpace {
-
-    func createModel(x: Float, y: Float, z: Float, alpha: Float = 1.0) -> XYZ {
-        XYZ(x: x, y: y, z:z, alpha: alpha, space: self)
-    }
+extension XYZColorSpaceRepresentable {
 
     func chromaticAdaptationMatrix(for srcWp: xyY, xyzToLms: matrix_float3x3 = CAT02_XYZ_TO_LMS, lmsToXyz: matrix_float3x3 = CAT02_LMS_TO_XYZ) -> matrix_float3x3 {
         let dstWp = self.whitePoint.chromaticity
@@ -59,24 +53,23 @@ enum XYZColorSpaces {
     ///
     /// An [XYZ] color space calculated relative to [Illuminant.D65]
     ///
-    static let XYZ65: XYZColorSpace = XYZColorSpaceImpl(whitePoint: Illuminant.D65)
+    static let XYZ65: XYZColorSpace = XYZColorSpace(whitePoint: Illuminant.D65)
 
     ///
     /// An [XYZ] color space calculated relative to [Illuminant.D50]
     ///
-    static let XYZ50: XYZColorSpace = XYZColorSpaceImpl(whitePoint: Illuminant.D50)
+    static let XYZ50: XYZColorSpace = XYZColorSpace(whitePoint: Illuminant.D50)
 }
 
-struct XYZColorSpaceImpl: XYZColorSpace {
+struct XYZColorSpace: XYZColorSpaceRepresentable, ColorSpace {
 
     let whitePoint: WhitePoint
 
     let name = "XYZ"
 
     let components = rectangularComponentInfo(name: "XYZ")
-
-    
 }
+
 
 ///
 /// The CIEXYZ color model
@@ -89,12 +82,13 @@ struct XYZColorSpaceImpl: XYZColorSpace {
 /// | [y]              | `[0, 1]` |
 /// | [z]              | `[0, 1]` |
 struct XYZ: Color {
+
     func toSRGB() -> RGB {
         to(rgbSpace: RGBColorSpaces.sRGB)
     }
 
     func to(rgbSpace: RGBColorSpace) -> RGB {
-        let xyz = adapt(toSpace: XYZColorSpaceImpl(whitePoint: rgbSpace.whitePoint))
+        let xyz = adapt(toSpace: XYZColorSpace(whitePoint: rgbSpace.whitePoint))
         let xyz_v3 = simd_float3(x: xyz.x, y: xyz.y, z: xyz.z)
 
         let f = rgbSpace.transferFunctions.oetf
@@ -108,23 +102,14 @@ struct XYZ: Color {
     let y: Float
     let z: Float
     let alpha: Float
-//    let space: XYZColorSpace
-    let space: ColorSpace
+    let space: XYZColorSpace
 
     func adapt(toSpace space: XYZColorSpace) -> XYZ {
         adaptToM(space: space, m: CAT02_XYZ_TO_LMS, mi: CAT02_LMS_TO_XYZ)
     }
 
     private func adaptToM(space: XYZColorSpace, m: matrix_float3x3, mi: matrix_float3x3) -> XYZ {
-        guard let xyzSpace = self.space as? XYZColorSpace else {
-            fatalError("")
-        }
-//        guard xyzSpace.whitePoint != space.whitePoint else {
-//            return self
-//        }
-
-        let transform = xyzSpace.chromaticAdaptationMatrix(for: xyzSpace.whitePoint.chromaticity, xyzToLms: m, lmsToXyz: mi)
-//        transform
+        let transform = self.space.chromaticAdaptationMatrix(for: self.space.whitePoint.chromaticity, xyzToLms: m, lmsToXyz: mi)
         
         let v = transform * simd_float3(x: self.x, y: self.y, z: self.z)
 
@@ -139,9 +124,7 @@ extension XYZ {
             t > CIE_E ? (cbrt(t)) : ((t * CIE_K + 16) / 116)
         }
 
-        guard let xyzColorSpace = space as? XYZColorSpace else {
-            fatalError("")
-        }
+        let xyzColorSpace = self.space
 
         let fx = f(x / xyzColorSpace.whitePoint.chromaticity.X)
         let fy = f(y / xyzColorSpace.whitePoint.chromaticity.Y)
@@ -151,6 +134,6 @@ extension XYZ {
         let a = 500 * (fx - fy)
         let b = 200 * (fy - fz)
 
-        return LAB(l: l, a: a, b: b, alpha: self.alpha, space: LABColorSpaceImpl(whitePoint: xyzColorSpace.whitePoint))
+        return LAB(l: l, a: a, b: b, alpha: self.alpha, space: LABColorSpace(whitePoint: xyzColorSpace.whitePoint))
     }
 }

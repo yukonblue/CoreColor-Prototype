@@ -27,7 +27,7 @@ struct CMYK: Color {
     let k: Float
     let alpha: Float
 
-    var space: ColorSpace {
+    var space: CMYKColorSpace {
         Self.colorspace
     }
 
@@ -48,5 +48,5 @@ struct CMYKColorSpace: ColorSpace {
 
 extension CMYK {
 
-    static let colorspace: ColorSpace = CMYKColorSpace()
+    static let colorspace: CMYKColorSpace = CMYKColorSpace()
 }

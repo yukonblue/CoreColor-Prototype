@@ -97,7 +97,7 @@ class RGBColorSpacesConversionTest: XCTestCase {
     }
 
     func check_RGB_to_RGB(src: RGB, dst: RGB) throws {
-        try assertIsSameRGB(src.convert(toRGBColorSpace: dst.space as! RGBColorSpace), dst)
+        try assertIsSameRGB(src.convert(toRGBColorSpace: dst.space), dst)
     }
 
     func assertIsSameRGB(_ a: RGB, _ b: RGB) throws {

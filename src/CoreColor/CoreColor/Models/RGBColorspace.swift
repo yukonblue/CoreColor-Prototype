@@ -8,7 +8,7 @@
 import Foundation
 import simd
 
-protocol RGBColorSpace: WhitePointColorSpace, AnyObject {
+protocol RGBColorSpaceRepresentable: WhitePointColorSpace, AnyObject {
 
     ///
     /// Transfer functions for the RGB colorspace.
@@ -23,11 +23,6 @@ protocol RGBColorSpace: WhitePointColorSpace, AnyObject {
     /// A 3×3 matrix that transforms [XYZ] tristimulus values to linear-light values in this space.
     ///
     var matrixFromXyz: matrix_float3x3 { get }
-}
-
-extension RGBColorSpace {
-
-
 }
 
 ///
