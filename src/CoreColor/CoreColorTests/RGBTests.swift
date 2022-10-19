@@ -68,6 +68,29 @@ class RGBTests: XCTestCase {
                               cmyk: CMYK(c: 0.00, m: 0.00, y: 0.00, k: 0.00, alpha: 1.00))
     }
 
+    func test_sRGB_to_sRGB() throws {
+        try check_RGB_to_sRGB(src: RGB(r: 0.00, g: 0.00, b: 0.00, alpha: 1.0, space: RGBColorSpaces.sRGB),
+                              dst: RGB(r: 0.00, g: 0.00, b: 0.00, alpha: 1.0, space: RGBColorSpaces.sRGB))
+
+        try check_RGB_to_sRGB(src: RGB(r: 0.18, g: 0.18, b: 0.18, alpha: 1.0, space: RGBColorSpaces.sRGB),
+                              dst: RGB(r: 0.18, g: 0.18, b: 0.18, alpha: 1.0, space: RGBColorSpaces.sRGB))
+
+        try check_RGB_to_sRGB(src: RGB(r: 0.40, g: 0.50, b: 0.60, alpha: 1.0, space: RGBColorSpaces.sRGB),
+                              dst: RGB(r: 0.40, g: 0.50, b: 0.60, alpha: 1.0, space: RGBColorSpaces.sRGB))
+
+        try check_RGB_to_sRGB(src: RGB(r: 1.00, g: 1.00, b: 1.00, alpha: 1.0, space: RGBColorSpaces.sRGB),
+                              dst: RGB(r: 1.00, g: 1.00, b: 1.00, alpha: 1.0, space: RGBColorSpaces.sRGB))
+    }
+
+    private func check_RGB_to_sRGB(src: RGB, dst: RGB) throws {
+        let converted = src.toSRGB()
+        assertEqual(converted.r, dst.r, accuracy: 1e-5)
+        assertEqual(converted.g, dst.g, accuracy: 1e-5)
+        assertEqual(converted.b, dst.b, accuracy: 1e-5)
+        assertEqual(converted.alpha, dst.alpha, accuracy: 1e-5)
+        // TODO: Check colorspace!
+    }
+
     private func check_RGB_to_HSV(rgb: RGB, hsv: HSV) throws {
         let converted = rgb.toHSV()
         assertEqual(converted.h, hsv.h, accuracy: 1e-5)

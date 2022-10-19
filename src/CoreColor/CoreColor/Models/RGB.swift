@@ -47,8 +47,7 @@ struct RGB: Color {
     }
 
     func toSRGB() -> RGB {
-        // TODO
-        fatalError("")
+        self.convert(toRGBColorSpace: RGBColorSpaces.sRGB)
     }
 }
 
