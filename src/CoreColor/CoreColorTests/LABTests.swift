@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import CoreColor
 
-class LABTests: XCTestCase {
+class LABTests: ColorTestCase {
 
     func test_LAB_to_XYZ() throws {
         try check_LAB_to_XYZ(lab: LAB(l: 0.00, a: 0.00, b: 0.00, alpha: 1.0, space: LABColorSpaces.LAB65),
@@ -27,14 +27,77 @@ class LABTests: XCTestCase {
     }
 
     func check_LAB_to_XYZ(lab: LAB, xyz: XYZ) throws {
-        try assertIsSameXYZ(lab.toXYZ(), xyz)
+        try check_conversion(lab) { (src: LAB) -> XYZ in
+            src.toXYZ()
+        } check: { converted, _ in
+            try assertIsSameXYZ(converted, xyz)
+        }
     }
 
-    func assertIsSameXYZ(_ a: XYZ, _ b: XYZ) throws {
-        XCTAssertEqual(a.x, b.x, accuracy: 1e-5)
-        XCTAssertEqual(a.y, b.y, accuracy: 1e-5)
-        XCTAssertEqual(a.z, b.z, accuracy: 1e-5)
-        XCTAssertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+    func test_LAB_to_RGB() throws {
+        try check_conversion(LAB(l: 0.00, a: 0.00, b: 0.00, alpha: 1.0, space: LABColorSpaces.LAB65)) { (src: LAB) -> RGB in
+            src.toSRGB()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.r.isFinite)
+            XCTAssertTrue(converted.g.isFinite)
+            XCTAssertTrue(converted.b.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_LAB_to_LUV() throws {
+        try check_conversion(LAB(l: 0.00, a: 0.00, b: 0.00, alpha: 1.0, space: LABColorSpaces.LAB65)) { (src: LAB) -> LUV in
+            src.toLUV()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.l.isFinite)
+            XCTAssertTrue(converted.u.isFinite)
+            XCTAssertTrue(converted.v.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_LAB_to_HSV() throws {
+        try check_conversion(LAB(l: 0.00, a: 0.00, b: 0.00, alpha: 1.0, space: LABColorSpaces.LAB65)) { (src: LAB) -> HSV in
+            src.toHSV()
+        } check: { converted, _ in
+//            XCTAssertTrue(converted.h.isFinite) // TODO: make this work
+            XCTAssertTrue(converted.s.isFinite)
+            XCTAssertTrue(converted.v.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_LAB_to_HSL() throws {
+        try check_conversion(LAB(l: 0.00, a: 0.00, b: 0.00, alpha: 1.0, space: LABColorSpaces.LAB65)) { (src: LAB) -> HSL in
+            src.toHSL()
+        } check: { converted, _ in
+//            XCTAssertTrue(converted.h.isFinite) // TODO: make this work
+            XCTAssertTrue(converted.s.isFinite)
+            XCTAssertTrue(converted.l.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_LAB_to_CYMK() throws {
+        try check_conversion(LAB(l: 0.00, a: 0.00, b: 0.00, alpha: 1.0, space: LABColorSpaces.LAB65)) { (src: LAB) -> CMYK in
+            src.toCMYK()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.c.isFinite)
+            XCTAssertTrue(converted.m.isFinite)
+            XCTAssertTrue(converted.y.isFinite)
+            XCTAssertTrue(converted.k.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_LAB_to_LAB() throws {
+        try check_conversion(LAB(l: 18.00, a: 18.00, b: 18.00, alpha: 1.0, space: LABColorSpaces.LAB65)) { (src: LAB) -> LAB in
+            src.toLAB()
+        } check: { converted, src in
+            XCTAssertEqual(converted.l, src.l, accuracy: 1e-5)
+            XCTAssertEqual(converted.a, src.a, accuracy: 1e-5)
+            XCTAssertEqual(converted.b, src.b, accuracy: 1e-5)
+            XCTAssertEqual(converted.alpha, src.alpha, accuracy: 1e-5)
+        }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import CoreColor
 
-class RGBTests: XCTestCase {
+class RGBTests: ColorTestCase {
 
     func test_RGB_to_HSV() throws {
         try check_RGB_to_HSV(rgb: RGB(r: 0.00, g: 0.00, b: 0.00, alpha: 1.0, space: RGBColorSpaces.sRGB),
@@ -82,6 +82,17 @@ class RGBTests: XCTestCase {
                              luv: LUV(l: 100.00, u: 0.00, v: 0.00, alpha: 1.00, space: LUVColorSpaces.LUV65))
     }
 
+    func test_RGB_to_LAB() throws {
+        try check_conversion(RGB(r: 0.18, g: 0.18, b: 0.18, alpha: 1.0, space: RGBColorSpaces.sRGB)) { (src: RGB) -> LAB in
+            src.toLAB()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.l.isFinite)
+            XCTAssertTrue(converted.a.isFinite)
+            XCTAssertTrue(converted.b.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
     func test_sRGB_to_sRGB() throws {
         try check_RGB_to_sRGB(src: RGB(r: 0.00, g: 0.00, b: 0.00, alpha: 1.0, space: RGBColorSpaces.sRGB),
                               dst: RGB(r: 0.00, g: 0.00, b: 0.00, alpha: 1.0, space: RGBColorSpaces.sRGB))
@@ -97,58 +108,51 @@ class RGBTests: XCTestCase {
     }
 
     private func check_RGB_to_sRGB(src: RGB, dst: RGB) throws {
-        let converted = src.toSRGB()
-        assertEqual(converted.r, dst.r, accuracy: 1e-5)
-        assertEqual(converted.g, dst.g, accuracy: 1e-5)
-        assertEqual(converted.b, dst.b, accuracy: 1e-5)
-        assertEqual(converted.alpha, dst.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        try check_conversion(src) { (src: RGB) -> RGB in
+            src.toSRGB()
+        } check: { converted, _ in
+            try assertIsSameRGB(converted, dst)
+        }
     }
 
     private func check_RGB_to_LUV(rgb: RGB, luv: LUV) throws {
-        let converted = rgb.toLUV()
-        assertEqual(converted.l, luv.l, accuracy: 1e-5)
-        assertEqual(converted.u, luv.u, accuracy: 1e-5)
-        assertEqual(converted.v, luv.v, accuracy: 1e-4) // TODO: more accuracy
-        assertEqual(converted.alpha, luv.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        try check_conversion(rgb) { (src: RGB) -> LUV in
+            src.toLUV()
+        } check: { converted, _ in
+            try assertIsSameLUV(converted, luv)
+        }
     }
 
     private func check_RGB_to_HSV(rgb: RGB, hsv: HSV) throws {
-        let converted = rgb.toHSV()
-        assertEqual(converted.h, hsv.h, accuracy: 1e-5)
-        assertEqual(converted.s, hsv.s, accuracy: 1e-5)
-        assertEqual(converted.v, hsv.v, accuracy: 1e-5)
-        assertEqual(converted.alpha, hsv.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        try check_conversion(rgb) { (src: RGB) -> HSV in
+            src.toHSV()
+        } check: { converted, _ in
+            try assertIsSameHSV(converted, hsv)
+        }
     }
 
     private func check_RGB_to_HSL(rgb: RGB, hsl: HSL) throws {
-        let converted = rgb.toHSL()
-        assertEqual(converted.h, hsl.h, accuracy: 1e-6)
-        assertEqual(converted.s, hsl.s, accuracy: 1e-5)
-        assertEqual(converted.l, hsl.l, accuracy: 1e-5)
-        assertEqual(converted.alpha, hsl.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        try check_conversion(rgb) { (src: RGB) -> HSL in
+            src.toHSL()
+        } check: { converted, _ in
+            try assertIsSameHSL(converted, hsl)
+        }
     }
 
     private func check_RGB_to_XYZ(rgb: RGB, xyz: XYZ) throws {
-        let converted = rgb.toXYZ()
-        assertEqual(converted.x, xyz.x, accuracy: 1e-5)
-        assertEqual(converted.y, xyz.y, accuracy: 1e-5)
-        assertEqual(converted.z, xyz.z, accuracy: 1e-5)
-        assertEqual(converted.alpha, xyz.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        try check_conversion(rgb) { (src: RGB) -> XYZ in
+            src.toXYZ()
+        } check: { converted, _ in
+            try assertIsSameXYZ(converted, xyz)
+        }
     }
 
     private func check_RGB_to_CMYK(rgb: RGB, cmyk: CMYK) throws {
-        let converted = rgb.toCMYK()
-        assertEqual(converted.c, cmyk.c, accuracy: 1e-5)
-        assertEqual(converted.m, cmyk.m, accuracy: 1e-5)
-        assertEqual(converted.y, cmyk.y, accuracy: 1e-5)
-        assertEqual(converted.k, cmyk.k, accuracy: 1e-5)
-        assertEqual(converted.alpha, cmyk.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        try check_conversion(rgb) { (src: RGB) -> CMYK in
+            src.toCMYK()
+        } check: { converted, _ in
+            try assertIsSameCMYK(converted, cmyk)
+        }
     }
 
     private func assertEqual(_ a: Float, _ b: Float, accuracy: Float = 1e-5) {

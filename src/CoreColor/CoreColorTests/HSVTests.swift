@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import CoreColor
 
-class HSVTests: XCTestCase {
+class HSVTests: ColorTestCase {
 
     func test_HSV_to_RGB() throws {
         try check_HSV_to_RGB(hsv: HSV(h: Float.nan, s: 0.00, v: 0.00, alpha: 1.0),
@@ -27,14 +27,77 @@ class HSVTests: XCTestCase {
     }
 
     func check_HSV_to_RGB(hsv: HSV, rgb: RGB) throws {
-        try assertIsSameRGB(hsv.toSRGB(), rgb)
+        try check_conversion(hsv) { (src: HSV) -> RGB in
+            src.toSRGB()
+        } check: { converted, _ in
+            try assertIsSameRGB(converted, rgb)
+        }
     }
 
-    func assertIsSameRGB(_ a: RGB, _ b: RGB) throws {
-        XCTAssertEqual(a.r, b.r, accuracy: 1e-5)
-        XCTAssertEqual(a.g, b.g, accuracy: 1e-5)
-        XCTAssertEqual(a.b, b.b, accuracy: 1e-5)
-        XCTAssertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+    func test_HSV_to_XYZ() throws {
+        try check_conversion(HSV(h: 144.00, s: 0.50, v: 0.60, alpha: 1.0)) { (src: HSV) -> XYZ in
+            src.toXYZ()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.x.isFinite)
+            XCTAssertTrue(converted.y.isFinite)
+            XCTAssertTrue(converted.z.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_HSV_to_HSL() throws {
+        try check_conversion(HSV(h: 144.00, s: 0.50, v: 0.60, alpha: 1.0)) { (src: HSV) -> HSL in
+            src.toHSL()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.h.isFinite)
+            XCTAssertTrue(converted.s.isFinite)
+            XCTAssertTrue(converted.l.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_HSV_to_LAB() throws {
+        try check_conversion(HSV(h: 144.00, s: 0.50, v: 0.60, alpha: 1.0)) { (src: HSV) -> LAB in
+            src.toLAB()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.l.isFinite)
+            XCTAssertTrue(converted.a.isFinite)
+            XCTAssertTrue(converted.b.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_HSV_to_LUV() throws {
+        try check_conversion(HSV(h: 144.00, s: 0.50, v: 0.60, alpha: 1.0)) { (src: HSV) -> LUV in
+            src.toLUV()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.l.isFinite)
+            XCTAssertTrue(converted.u.isFinite)
+            XCTAssertTrue(converted.v.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_HSV_to_CMYK() throws {
+        try check_conversion(HSV(h: 144.00, s: 0.50, v: 0.60, alpha: 1.0)) { (src: HSV) -> CMYK in
+            src.toCMYK()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.c.isFinite)
+            XCTAssertTrue(converted.m.isFinite)
+            XCTAssertTrue(converted.y.isFinite)
+            XCTAssertTrue(converted.k.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_HSV_to_HSV() throws {
+        try check_conversion(HSV(h: 144.00, s: 0.50, v: 0.60, alpha: 1.0)) { (src: HSV) -> HSV in
+            src.toHSV()
+        } check: { converted, src in
+            XCTAssertEqual(converted.h, src.h)
+            XCTAssertEqual(converted.s, src.s)
+            XCTAssertEqual(converted.v, src.v)
+            XCTAssertEqual(converted.alpha, src.alpha)
+        }
     }
 }

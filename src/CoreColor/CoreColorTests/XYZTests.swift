@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import CoreColor
 
-class XYZTests: XCTestCase {
+class XYZTests: ColorTestCase {
 
     func test_XYZ_to_SRGB() throws {
         try check_XYZ_to_RGB(xyz: XYZ(x: 0.00, y: 0.00, z: 0.00, alpha: 1.0, space: XYZColorSpaces.XYZ65),
@@ -49,45 +49,69 @@ class XYZTests: XCTestCase {
                              luv: LUV(l: 76.06926101, u: -107.96735088, v: -37.65708044, alpha: 1.0, space: LUVColorSpaces.LUV50))
     }
 
+    func test_XYZ_to_HSV() throws {
+        try check_conversion(XYZ(x: 0.40, y: 0.50, z: 0.60, alpha: 1.0, space: XYZColorSpaces.XYZ65)) { (src: XYZ) -> HSV in
+            src.toHSV()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.h.isFinite)
+            XCTAssertTrue(converted.s.isFinite)
+            XCTAssertTrue(converted.v.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_XYZ_to_HSL() throws {
+        try check_conversion(XYZ(x: 0.40, y: 0.50, z: 0.60, alpha: 1.0, space: XYZColorSpaces.XYZ65)) { (src: XYZ) -> HSL in
+            src.toHSL()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.h.isFinite)
+            XCTAssertTrue(converted.s.isFinite)
+            XCTAssertTrue(converted.l.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_XYZ_to_XYZ() throws {
+        try check_conversion(XYZ(x: 0.40, y: 0.50, z: 0.60, alpha: 1.0, space: XYZColorSpaces.XYZ65)) { (src: XYZ) -> XYZ in
+            src.toXYZ()
+        } check: { converted, src in
+            try assertIsSameXYZ(converted, src)
+        }
+    }
+
+    func test_XYZ_to_CMYK() throws {
+        try check_conversion(XYZ(x: 0.40, y: 0.50, z: 0.60, alpha: 1.0, space: XYZColorSpaces.XYZ65)) { (src: XYZ) -> CMYK in
+            src.toCMYK()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.c.isFinite)
+            XCTAssertTrue(converted.m.isFinite)
+            XCTAssertTrue(converted.y.isFinite)
+            XCTAssertTrue(converted.k.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
     func check_XYZ_to_LUV(xyz: XYZ, luv: LUV) throws {
-        let converted = xyz.toLUV()
-        assertEqual(converted.l, luv.l, accuracy: 1e-5)
-        assertEqual(converted.u, luv.u, accuracy: 1e-4) // TODO: More accuracy
-        assertEqual(converted.v, luv.v, accuracy: 1e-4) // TODO: More accuracy
-        assertEqual(converted.alpha, luv.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        try check_conversion(xyz) { (src: XYZ) -> LUV in
+            src.toLUV()
+        } check: { converted, _ in
+            try assertIsSameLUV(converted, luv)
+        }
     }
 
     func check_XYZ_to_RGB(xyz: XYZ, rgb: RGB) throws {
-        try assertIsSameRGB(xyz.toSRGB(), rgb)
+        try check_conversion(xyz) { (src: XYZ) -> RGB in
+            src.toSRGB()
+        } check: { converted, _ in
+            try assertIsSameRGB(converted, rgb)
+        }
     }
 
     func check_XYZ_to_LAB(xyz: XYZ, lab: LAB) throws {
-        try assertIsSameLAB(xyz.toLAB(), lab)
-    }
-
-    func assertIsSameRGB(_ a: RGB, _ b: RGB) throws {
-        XCTAssertEqual(a.r, b.r, accuracy: 1e-5)
-        XCTAssertEqual(a.g, b.g, accuracy: 1e-5)
-        XCTAssertEqual(a.b, b.b, accuracy: 1e-5)
-        XCTAssertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
-    }
-
-    func assertIsSameLAB(_ a: LAB, _ b: LAB) throws {
-        XCTAssertEqual(a.l, b.l, accuracy: 1e-5)
-        XCTAssertEqual(a.a, b.a, accuracy: 1e-4) // TODO: Need more accuracy
-        XCTAssertEqual(a.b, b.b, accuracy: 1e-5)
-        XCTAssertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
-    }
-
-    private func assertEqual(_ a: Float, _ b: Float, accuracy: Float = 1e-5) {
-        switch (a.isNaN, b.isNaN) {
-        case (true, true):
-            break
-        default:
-            XCTAssertEqual(a, b, accuracy: accuracy)
+        try check_conversion(xyz) { (src: XYZ) -> LAB in
+            src.toLAB()
+        } check: { converted, _ in
+            try assertIsSameLAB(converted, lab)
         }
     }
 }

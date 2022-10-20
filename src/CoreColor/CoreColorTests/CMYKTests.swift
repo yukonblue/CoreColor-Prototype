@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import CoreColor
 
-class CMYKTests: XCTestCase {
+class CMYKTests: ColorTestCase {
 
     func test_CMYK_to_RGB() throws {
         try check_CMYK_to_RGB(cmyk: CMYK(c: 0.00, m: 0.00, y: 0.00, k: 0.00, alpha: 1.0),
@@ -28,14 +28,77 @@ class CMYKTests: XCTestCase {
     }
 
     func check_CMYK_to_RGB(cmyk: CMYK, rgb: RGB) throws {
-        try assertIsSameRGB(cmyk.toSRGB(), rgb)
+        try check_conversion(cmyk) { (src: CMYK) -> RGB in
+            src.toSRGB()
+        } check: { converted, _ in
+            try assertIsSameRGB(converted, rgb)
+        }
     }
 
-    func assertIsSameRGB(_ a: RGB, _ b: RGB) throws {
-        XCTAssertEqual(a.r, b.r, accuracy: 1e-5)
-        XCTAssertEqual(a.g, b.g, accuracy: 1e-5)
-        XCTAssertEqual(a.b, b.b, accuracy: 1e-5)
-        XCTAssertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+    func test_CMYK_to_XYZ() throws {
+        try check_conversion(CMYK(c: 0.0, m: 0.0, y: 0.0, k: 0.0, alpha: 1.0)) { (src: CMYK) -> XYZ in
+            src.toXYZ()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.x.isFinite)
+            XCTAssertTrue(converted.y.isFinite)
+            XCTAssertTrue(converted.z.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_CMYK_to_LAB() throws {
+        try check_conversion(CMYK(c: 0.0, m: 0.0, y: 0.0, k: 0.0, alpha: 1.0)) { (src: CMYK) -> LAB in
+            src.toLAB()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.l.isFinite)
+            XCTAssertTrue(converted.a.isFinite)
+            XCTAssertTrue(converted.b.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_CMYK_to_LUV() throws {
+        try check_conversion(CMYK(c: 0.0, m: 0.0, y: 0.0, k: 0.0, alpha: 1.0)) { (src: CMYK) -> LUV in
+            src.toLUV()
+        } check: { converted, _ in
+            XCTAssertTrue(converted.l.isFinite)
+            XCTAssertTrue(converted.u.isFinite)
+            XCTAssertTrue(converted.v.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_CMYK_to_HSV() throws {
+        try check_conversion(CMYK(c: 0.0, m: 0.0, y: 0.0, k: 0.0, alpha: 1.0)) { (src: CMYK) -> HSV in
+            src.toHSV()
+        } check: { converted, _ in
+//            XCTAssertTrue(converted.h.isFinite) // TODO: look into this
+            XCTAssertTrue(converted.s.isFinite)
+            XCTAssertTrue(converted.v.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_CMYK_to_HSL() throws {
+        try check_conversion(CMYK(c: 0.0, m: 0.0, y: 0.0, k: 0.0, alpha: 1.0)) { (src: CMYK) -> HSL in
+            src.toHSL()
+        } check: { converted, _ in
+//            XCTAssertTrue(converted.h.isFinite) // TODO: look into this
+            XCTAssertTrue(converted.s.isFinite)
+            XCTAssertTrue(converted.l.isFinite)
+            XCTAssertTrue(converted.alpha.isFinite)
+        }
+    }
+
+    func test_CMYK_to_CMYK() throws {
+        try check_conversion(CMYK(c: 0.0, m: 0.0, y: 0.0, k: 0.0, alpha: 1.0)) { (src: CMYK) -> CMYK in
+            src.toCMYK()
+        } check: { converted, src in
+            XCTAssertEqual(converted.c, src.c)
+            XCTAssertEqual(converted.y, src.y)
+            XCTAssertEqual(converted.m, src.m)
+            XCTAssertEqual(converted.k, src.k)
+            XCTAssertEqual(converted.alpha, src.alpha)
+        }
     }
 }
