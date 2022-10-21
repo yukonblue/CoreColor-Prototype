@@ -21,7 +21,7 @@ class ColorTestCase: XCTestCase {
         XCTAssertEqual(a.g, b.g, accuracy: 1e-5)
         XCTAssertEqual(a.b, b.b, accuracy: 1e-5)
         XCTAssertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        XCTAssertEqual(a.space, b.space)
     }
 
     func assertIsSameXYZ(_ a: XYZ, _ b: XYZ) throws {
@@ -29,7 +29,7 @@ class ColorTestCase: XCTestCase {
         XCTAssertEqual(a.y, b.y, accuracy: 1e-5)
         XCTAssertEqual(a.z, b.z, accuracy: 1e-5)
         XCTAssertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        XCTAssertEqual(a.space, b.space)
     }
 
     func assertIsSameLUV(_ a: LUV, _ b: LUV) throws {
@@ -37,7 +37,7 @@ class ColorTestCase: XCTestCase {
         assertEqual(a.u, b.u, accuracy: 1e-4)
         assertEqual(a.v, b.v, accuracy: 1e-4) // TODO: more accuracy
         assertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        XCTAssertEqual(a.space, b.space)
     }
 
     func assertIsSameLAB(_ a: LAB, _ b: LAB) throws {
@@ -45,7 +45,7 @@ class ColorTestCase: XCTestCase {
         XCTAssertEqual(a.a, b.a, accuracy: 1e-4) // TODO: Need more accuracy
         XCTAssertEqual(a.b, b.b, accuracy: 1e-5)
         XCTAssertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        XCTAssertEqual(a.space, b.space)
     }
 
     func assertIsSameHSV(_ a: HSV, _ b: HSV) throws {
@@ -53,7 +53,7 @@ class ColorTestCase: XCTestCase {
         assertEqual(a.s, b.s, accuracy: 1e-5)
         assertEqual(a.v, b.v, accuracy: 1e-4) // TODO: more accuracy
         assertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        XCTAssertEqual(a.space, b.space)
     }
 
     func assertIsSameHSL(_ a: HSL, _ b: HSL) throws {
@@ -61,7 +61,7 @@ class ColorTestCase: XCTestCase {
         assertEqual(a.s, b.s, accuracy: 1e-5)
         assertEqual(a.l, b.l, accuracy: 1e-5)
         assertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        XCTAssertEqual(a.space, b.space)
     }
 
     func assertIsSameCMYK(_ a: CMYK, _ b: CMYK) throws {
@@ -70,7 +70,7 @@ class ColorTestCase: XCTestCase {
         assertEqual(a.y, b.y, accuracy: 1e-5)
         assertEqual(a.k, b.k, accuracy: 1e-5)
         assertEqual(a.alpha, b.alpha, accuracy: 1e-5)
-        // TODO: Check colorspace!
+        XCTAssertEqual(a.space, b.space)
     }
 
     private func assertEqual(_ a: Float, _ b: Float, accuracy: Float = 1e-5) {

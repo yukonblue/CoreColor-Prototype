@@ -151,11 +151,11 @@ extension RGB {
         let srcRGBColorSpace = self.space
 
         let f = RGBColorSpaces.sRGB.transferFunctions
-        if srcRGBColorSpace === dstRGBColorSpace {
+        if srcRGBColorSpace == dstRGBColorSpace {
             return self
-        } else if srcRGBColorSpace === RGBColorSpaces.sRGB && dstRGBColorSpace === RGBColorSpaces.LinearSRGB {
+        } else if srcRGBColorSpace == RGBColorSpaces.sRGB && dstRGBColorSpace === RGBColorSpaces.LinearSRGB {
             return RGB(r: f.eotf(r),g: f.eotf(g), b: f.eotf(b), alpha: self.alpha, space: dstRGBColorSpace)
-        } else if srcRGBColorSpace === RGBColorSpaces.LinearSRGB && dstRGBColorSpace === RGBColorSpaces.sRGB {
+        } else if srcRGBColorSpace == RGBColorSpaces.LinearSRGB && dstRGBColorSpace === RGBColorSpaces.sRGB {
             return RGB(r: f.oetf(r), g: f.oetf(g), b: f.oetf(b), alpha: self.alpha, space: dstRGBColorSpace)
         } else {
             return self.toXYZ().to(rgbSpace: dstRGBColorSpace)

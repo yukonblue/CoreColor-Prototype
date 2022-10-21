@@ -112,6 +112,15 @@ class RGBColorSpace: RGBColorSpaceRepresentable {
     let r: xyY
     let g: xyY
     let b: xyY
+
+    static func == (lhs: RGBColorSpace, rhs: RGBColorSpace) -> Bool {
+        lhs.name == rhs.name && lhs.components == rhs.components && lhs.whitePoint == rhs.whitePoint &&
+        lhs.matrixFromXyz == rhs.matrixFromXyz && lhs.matrixToXyz == rhs.matrixToXyz &&
+        lhs.transferFunctions.signature == rhs.transferFunctions.signature &&
+        lhs.r == rhs.r &&
+        lhs.g == rhs.g &&
+        lhs.b == rhs.b
+    }
 }
 
 // [SMPTE RP 177-1993](http://car.france3.mars.free.fr/Formation%20INA%20HD/HDTV/HDTV%20%202007%20v35/SMPTE%20normes%20et%20confs/rp177.pdf)

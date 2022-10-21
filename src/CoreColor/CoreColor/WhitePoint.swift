@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WhitePoint {
+struct WhitePoint: Equatable {
 
     let name: String
     let chromaticity: xyY

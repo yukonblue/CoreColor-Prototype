@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ColorSpace {
+protocol ColorSpace: Equatable {
 
 //    associatedtype T: Color
 
@@ -18,7 +18,14 @@ protocol ColorSpace {
 //    func convert(fromColor: Color) -> T
 }
 
-struct ColorComponentInfo {
+extension ColorSpace  {
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.name == rhs.name && lhs.components == rhs.components
+    }
+}
+
+struct ColorComponentInfo: Equatable {
 
     /// The name of this component.
     let name: String
@@ -34,4 +41,11 @@ protocol WhitePointColorSpace: ColorSpace {
 
     /// The white point that colors in this space are calculated relative to.
     var whitePoint: WhitePoint { get }
+}
+
+extension WhitePointColorSpace {
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.name == rhs.name && lhs.components == rhs.components && lhs.whitePoint == rhs.whitePoint
+    }
 }

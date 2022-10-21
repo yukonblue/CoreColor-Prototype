@@ -17,6 +17,7 @@
 		1731AF4328FC536600B16F79 /* CMYKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1731AF4228FC536600B16F79 /* CMYKTests.swift */; };
 		1750F906290036EF00A8BA93 /* LUV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1750F905290036EE00A8BA93 /* LUV.swift */; };
 		1750F9082900389D00A8BA93 /* LUVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1750F9072900389D00A8BA93 /* LUVTests.swift */; };
+		1765183C29031FAD003DC1EB /* RGBColorSpaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1765183B29031FAD003DC1EB /* RGBColorSpaceTests.swift */; };
 		17B69E4D28F986F8002F9992 /* CoreColor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B69E4428F986F8002F9992 /* CoreColor.framework */; };
 		17B69E5228F986F8002F9992 /* CoreColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B69E5128F986F8002F9992 /* CoreColorTests.swift */; };
 		17B69E5328F986F8002F9992 /* CoreColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 17B69E4728F986F8002F9992 /* CoreColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,6 +57,7 @@
 		1731AF4228FC536600B16F79 /* CMYKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMYKTests.swift; sourceTree = "<group>"; };
 		1750F905290036EE00A8BA93 /* LUV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LUV.swift; sourceTree = "<group>"; };
 		1750F9072900389D00A8BA93 /* LUVTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LUVTests.swift; sourceTree = "<group>"; };
+		1765183B29031FAD003DC1EB /* RGBColorSpaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBColorSpaceTests.swift; sourceTree = "<group>"; };
 		17B69E4428F986F8002F9992 /* CoreColor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreColor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B69E4728F986F8002F9992 /* CoreColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreColor.h; sourceTree = "<group>"; };
 		17B69E4C28F986F8002F9992 /* CoreColorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreColorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +139,7 @@
 				171A377028FD906900DAE73B /* RGBTests.swift */,
 				171A376E28FD843900DAE73B /* XYZTests.swift */,
 				171E46462900ECEC00CBBCEF /* ColorTestCase.swift */,
+				1765183B29031FAD003DC1EB /* RGBColorSpaceTests.swift */,
 			);
 			path = CoreColorTests;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1765183C29031FAD003DC1EB /* RGBColorSpaceTests.swift in Sources */,
 				17B69E5228F986F8002F9992 /* CoreColorTests.swift in Sources */,
 				171A376D28FD82C800DAE73B /* HSVTests.swift in Sources */,
 				1731AF4328FC536600B16F79 /* CMYKTests.swift in Sources */,

@@ -30,6 +30,9 @@ protocol RGBColorSpaceRepresentable: WhitePointColorSpace, AnyObject {
 ///
 protocol RGBTransferFunctions {
 
+    /// Gets the signature string of the transfer function.
+    var signature: String { get }
+
     ///
     /// Electro-Optical Transfer Function (EOTF / EOCF)
     ///
@@ -72,6 +75,10 @@ struct GammaTransferFunctions: RGBTransferFunctions {
 
     let gamma: Float
 
+    var signature: String {
+        "gamma-\(gamma)"
+    }
+
     func eotf(_ val: Float) -> Float {
         Float(val.spow(gamma))
     }
@@ -83,6 +90,8 @@ struct GammaTransferFunctions: RGBTransferFunctions {
 
 struct LinearTransferFunctions: RGBTransferFunctions {
 
+    let signature: String = "linear"
+
     func eotf(_ val: Float) -> Float {
         val
     }
@@ -93,6 +102,8 @@ struct LinearTransferFunctions: RGBTransferFunctions {
 }
 
 struct SRGBTransferFunctions : RGBTransferFunctions {
+
+    let signature: String = "srgb"
 
     func oetf(_ x: Float) -> Float {
         x <= 0.0031308 ? x * 12.92 : 1.055 * x.spow(1 / 2.4) - 0.055
