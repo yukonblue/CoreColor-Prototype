@@ -49,10 +49,10 @@ class HSVTests: ColorTestCase {
         try check_conversion(HSV(h: 144.00, s: 0.50, v: 0.60, alpha: 1.0)) { (src: HSV) -> HSL in
             src.toHSL()
         } check: { converted, _ in
-            XCTAssertTrue(converted.h.isFinite)
-            XCTAssertTrue(converted.s.isFinite)
-            XCTAssertTrue(converted.l.isFinite)
-            XCTAssertTrue(converted.alpha.isFinite)
+            XCTAssertEqual(converted.h, 144.0, accuracy: 1e-3)
+            XCTAssertEqual(converted.s, 0.33, accuracy: 1e-2)
+            XCTAssertEqual(converted.l, 0.45, accuracy: 1e-3)
+            XCTAssertEqual(converted.alpha, 1.0)
         }
     }
 
@@ -82,11 +82,11 @@ class HSVTests: ColorTestCase {
         try check_conversion(HSV(h: 144.00, s: 0.50, v: 0.60, alpha: 1.0)) { (src: HSV) -> CMYK in
             src.toCMYK()
         } check: { converted, _ in
-            XCTAssertTrue(converted.c.isFinite)
-            XCTAssertTrue(converted.m.isFinite)
-            XCTAssertTrue(converted.y.isFinite)
-            XCTAssertTrue(converted.k.isFinite)
-            XCTAssertTrue(converted.alpha.isFinite)
+            XCTAssertEqual(converted.c, 0.50)
+            XCTAssertEqual(converted.m, 0.00)
+            XCTAssertEqual(converted.y, 0.30)
+            XCTAssertEqual(converted.k, 0.40, accuracy: 1e-2)
+            XCTAssertEqual(converted.alpha, 1.0)
         }
     }
 

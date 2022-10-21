@@ -68,13 +68,13 @@ class HSLTests: ColorTestCase {
     }
 
     func test_HSL_to_HSV() throws {
-        try check_conversion(HSL(h: 64.80, s: 0.18, l: 0.18, alpha: 1.0)) { (src: HSL) -> HSV in
+        try check_conversion(HSL(h: 64, s: 0.18, l: 0.18, alpha: 1.0)) { (src: HSL) -> HSV in
             src.toHSV()
         } check: { converted, _ in
-            XCTAssertTrue(converted.h.isFinite)
-            XCTAssertTrue(converted.s.isFinite)
-            XCTAssertTrue(converted.v.isFinite)
-            XCTAssertTrue(converted.alpha.isFinite)
+            XCTAssertEqual(converted.h, 64.0)
+            XCTAssertEqual(converted.s, 0.31, accuracy: 1e-2)
+            XCTAssertEqual(converted.v, 0.21, accuracy: 1e-2)
+            XCTAssertEqual(converted.alpha, 1.0)
         }
     }
 
@@ -90,14 +90,14 @@ class HSLTests: ColorTestCase {
     }
 
     func test_HSL_to_CMYK() throws {
-        try check_conversion(HSL(h: 64.80, s: 0.18, l: 0.18, alpha: 1.0)) { (src: HSL) -> CMYK in
+        try check_conversion(HSL(h: 64, s: 0.18, l: 0.18, alpha: 1.0)) { (src: HSL) -> CMYK in
             src.toCMYK()
         } check: { converted, _ in
-            XCTAssertTrue(converted.c.isFinite)
-            XCTAssertTrue(converted.m.isFinite)
-            XCTAssertTrue(converted.y.isFinite)
-            XCTAssertTrue(converted.k.isFinite)
-            XCTAssertTrue(converted.alpha.isFinite)
+            XCTAssertEqual(converted.c, 0.02, accuracy: 1e-3)
+            XCTAssertEqual(converted.m, 0.0, accuracy: 1e-3)
+            XCTAssertEqual(converted.y, 31.0 / 100.0, accuracy: 1e-2)
+            XCTAssertEqual(converted.k, 79.0 / 100.0, accuracy: 1e-2)
+            XCTAssertEqual(converted.alpha, 1.0)
         }
     }
 }

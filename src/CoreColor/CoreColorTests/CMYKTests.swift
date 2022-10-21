@@ -24,6 +24,9 @@ class CMYKTests: ColorTestCase {
 
         try check_CMYK_to_RGB(cmyk: CMYK(c: 1.00, m: 1.00, y: 1.00, k: 1.00, alpha: 1.0),
                               rgb: RGB(r: 0.0, g: 0.0, b: 0.0, alpha: 1.0, space: RGBColorSpaces.sRGB))
+
+        try check_CMYK_to_RGB(cmyk: CMYK(c: 0.00, m: 16.0 / 100.0, y: 100.00 / 100.0, k: 0.00, alpha: 1.0),
+                              rgb: RGB(r: 1.0, g: 214.0 / 255.0, b: 0.0, alpha: 1.0, space: RGBColorSpaces.sRGB))
     }
 
     func check_CMYK_to_RGB(cmyk: CMYK, rgb: RGB) throws {
@@ -68,13 +71,13 @@ class CMYKTests: ColorTestCase {
     }
 
     func test_CMYK_to_HSV() throws {
-        try check_conversion(CMYK(c: 0.0, m: 0.0, y: 0.0, k: 0.0, alpha: 1.0)) { (src: CMYK) -> HSV in
+        try check_conversion(CMYK(c: 0.0, m: 16.0 / 100.0, y: 100.0 / 100.0, k: 0.0, alpha: 1.0)) { (src: CMYK) -> HSV in
             src.toHSV()
         } check: { converted, _ in
-//            XCTAssertTrue(converted.h.isFinite) // TODO: look into this
-            XCTAssertTrue(converted.s.isFinite)
-            XCTAssertTrue(converted.v.isFinite)
-            XCTAssertTrue(converted.alpha.isFinite)
+//            XCTAssertEqual(converted.h, 50.0 / 100.0)  // TODO: look into this
+            XCTAssertEqual(converted.s, 100.0 / 100.0)
+            XCTAssertEqual(converted.v, 100.0 / 100.0)
+            XCTAssertEqual(converted.alpha, 1.0)
         }
     }
 
@@ -82,10 +85,19 @@ class CMYKTests: ColorTestCase {
         try check_conversion(CMYK(c: 0.0, m: 0.0, y: 0.0, k: 0.0, alpha: 1.0)) { (src: CMYK) -> HSL in
             src.toHSL()
         } check: { converted, _ in
-//            XCTAssertTrue(converted.h.isFinite) // TODO: look into this
-            XCTAssertTrue(converted.s.isFinite)
-            XCTAssertTrue(converted.l.isFinite)
-            XCTAssertTrue(converted.alpha.isFinite)
+//            XCTAssertEqual(converted.h, 0.0) // TODO: look into this
+            XCTAssertEqual(converted.s, 0.0)
+            XCTAssertEqual(converted.l, 1.00)
+            XCTAssertEqual(converted.alpha, 1.00)
+        }
+
+        try check_conversion(CMYK(c: 0.0, m: 16.0 / 100.0, y: 100.0 / 100.0, k: 0.0, alpha: 1.0)) { (src: CMYK) -> HSL in
+            src.toHSL()
+        } check: { converted, _ in
+            XCTAssertEqual(converted.h, 50.4)
+            XCTAssertEqual(converted.s, 100.0 / 100.0)
+            XCTAssertEqual(converted.l, 50.0 / 100.0)
+            XCTAssertEqual(converted.alpha, 1.00)
         }
     }
 
