@@ -22,9 +22,8 @@ class CMYKTests: ColorTestCase {
         try check_CMYK_to_RGB(cmyk: CMYK(c: 0.40, m: 0.50, y: 0.60, k: 0.70, alpha: 1.0),
                               rgb: RGB(r: 0.18, g: 0.15, b: 0.12, alpha: 1.0, space: RGBColorSpaces.sRGB))
 
-        // TODO: Get this work ..
-//        try check_CMYK_to_RGB(cmyk: CMYK(c: 100, m: 100, y: 100, k: 100, alpha: 1.0),
-//                              rgb: RGB(r: 0.0, g: 0.0, b: 0.0, alpha: 1.0, space: RGBColorSpaces.sRGB))
+        try check_CMYK_to_RGB(cmyk: CMYK(c: 1.00, m: 1.00, y: 1.00, k: 1.00, alpha: 1.0),
+                              rgb: RGB(r: 0.0, g: 0.0, b: 0.0, alpha: 1.0, space: RGBColorSpaces.sRGB))
     }
 
     func check_CMYK_to_RGB(cmyk: CMYK, rgb: RGB) throws {
