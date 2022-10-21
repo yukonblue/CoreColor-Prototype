@@ -130,16 +130,16 @@
 			isa = PBXGroup;
 			children = (
 				1731AF4228FC536600B16F79 /* CMYKTests.swift */,
+				171E46462900ECEC00CBBCEF /* ColorTestCase.swift */,
 				17B69E5128F986F8002F9992 /* CoreColorTests.swift */,
 				1711724328FC56ED00E5C70D /* HSLTests.swift */,
 				171A376C28FD82C800DAE73B /* HSVTests.swift */,
 				1731AF4028FC4C8500B16F79 /* LABTests.swift */,
 				1750F9072900389D00A8BA93 /* LUVTests.swift */,
 				171A377228FDA9A100DAE73B /* RGBColorSpacesConversionTests.swift */,
+				1765183B29031FAD003DC1EB /* RGBColorSpaceTests.swift */,
 				171A377028FD906900DAE73B /* RGBTests.swift */,
 				171A376E28FD843900DAE73B /* XYZTests.swift */,
-				171E46462900ECEC00CBBCEF /* ColorTestCase.swift */,
-				1765183B29031FAD003DC1EB /* RGBColorSpaceTests.swift */,
 			);
 			path = CoreColorTests;
 			sourceTree = "<group>";
