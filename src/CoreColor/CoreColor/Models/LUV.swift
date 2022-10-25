@@ -7,10 +7,7 @@
 
 import Foundation
 
-protocol LUVColorSpaceRepresentable: WhitePointColorSpace {
-}
-
-struct LUVColorSpace: LUVColorSpaceRepresentable {
+struct LUVColorSpace: WhitePointColorSpace {
 
     let whitePoint: WhitePoint
 
