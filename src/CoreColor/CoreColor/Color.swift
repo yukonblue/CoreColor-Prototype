@@ -54,3 +54,20 @@ extension Color {
         self.toXYZ().toLUV()
     }
 }
+
+extension Color {
+
+    ///
+    /// Return `true` if all channels of this color, when converted to sRGB, lie in the range `[0, 1]`
+    ///
+    var isInSRGBGamut: Bool {
+        let srgb = toSRGB()
+        let srgbRange: ClosedRange<Float> = (0.0...1.0)
+        switch (srgb.r, srgb.g, srgb.b) {
+        case (srgbRange, srgbRange, srgbRange):
+            return true
+        default:
+            return false
+        }
+    }
+}

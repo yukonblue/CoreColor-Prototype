@@ -105,6 +105,16 @@ class RGBTests: ColorTestCase {
                               dst: RGB(r: 1.00, g: 1.00, b: 1.00, alpha: 1.0, space: RGBColorSpaces.sRGB))
     }
 
+    func test_sRGB_isInSRGBGamut() throws {
+        XCTAssertTrue(RGB(r: 0.00, g: 0.00, b: 0.00, alpha: 1.0, space: RGBColorSpaces.sRGB).isInSRGBGamut)
+        XCTAssertTrue(RGB(r: 0.40, g: 0.50, b: 0.60, alpha: 1.0, space: RGBColorSpaces.sRGB).isInSRGBGamut)
+        XCTAssertTrue(RGB(r: 1.00, g: 1.00, b: 1.00, alpha: 1.0, space: RGBColorSpaces.sRGB).isInSRGBGamut)
+        XCTAssertFalse(RGB(r: 1.01, g: 1.00, b: 1.000, alpha: 1.0, space: RGBColorSpaces.sRGB).isInSRGBGamut)
+        XCTAssertFalse(RGB(r: 1.00, g: 1.01, b: 1.000, alpha: 1.0, space: RGBColorSpaces.sRGB).isInSRGBGamut)
+        XCTAssertFalse(RGB(r: 1.00, g: 1.00, b: 1.001, alpha: 1.0, space: RGBColorSpaces.sRGB).isInSRGBGamut)
+        XCTAssertFalse(RGB(r: 2.00, g: 3.00, b: 4.00, alpha: 1.0, space: RGBColorSpaces.sRGB).isInSRGBGamut)
+    }
+
     private func check_RGB_to_sRGB(src: RGB, dst: RGB) throws {
         try check_conversion(src) { (src: RGB) -> RGB in
             src.toSRGB()
@@ -150,15 +160,6 @@ class RGBTests: ColorTestCase {
             src.toCMYK()
         } check: { converted, _ in
             try assertIsSameCMYK(converted, cmyk)
-        }
-    }
-
-    private func assertEqual(_ a: Float, _ b: Float, accuracy: Float = 1e-5) {
-        switch (a.isNaN, b.isNaN) {
-        case (true, true):
-            break
-        default:
-            XCTAssertEqual(a, b, accuracy: accuracy)
         }
     }
 }
