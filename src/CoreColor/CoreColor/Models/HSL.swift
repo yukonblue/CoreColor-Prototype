@@ -45,18 +45,18 @@ extension FloatingPoint {
     }
 }
 
-struct HSL: HueColor {
+public struct HSL: HueColor {
 
     let h: Float
     let s: Float
     let l: Float
-    let alpha: Float
+    public let alpha: Float
 
-    var space: HSLColorSpace {
+    public var space: HSLColorSpace {
         Self.colorspace
     }
 
-    func toSRGB() -> RGB {
+    public func toSRGB() -> RGB {
         guard s >= 1e-7 else {
             return RGB(r: self.l, g: self.l, b: self.l, alpha: self.alpha, space: RGBColorSpaces.sRGB)
         }
@@ -74,7 +74,7 @@ struct HSL: HueColor {
         return RGB(r: f(0), g: f(8), b: f(4), alpha: alpha, space: RGBColorSpaces.sRGB)
     }
 
-    func toHSV() -> HSV {
+    public func toHSV() -> HSV {
         var s = self.s
         var l = self.l
 
@@ -91,11 +91,11 @@ struct HSL: HueColor {
     }
 }
 
-struct HSLColorSpace: ColorSpace {
+public struct HSLColorSpace: ColorSpace {
 
-    let name = "HSL"
-    
-    let components: [ColorComponentInfo] = polarComponentInfo(name: "HSL")
+    public let name = "HSL"
+
+    public let components: [ColorComponentInfo] = polarComponentInfo(name: "HSL")
 }
 
 extension HSL {

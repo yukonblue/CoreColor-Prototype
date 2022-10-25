@@ -48,7 +48,7 @@ extension XYZColorSpaceRepresentable {
     }
 }
 
-enum XYZColorSpaces {
+public enum XYZColorSpaces {
 
     ///
     /// An [XYZ] color space calculated relative to [Illuminant.D65]
@@ -61,13 +61,13 @@ enum XYZColorSpaces {
     static let XYZ50: XYZColorSpace = XYZColorSpace(whitePoint: Illuminant.D50)
 }
 
-struct XYZColorSpace: XYZColorSpaceRepresentable, ColorSpace {
+public struct XYZColorSpace: XYZColorSpaceRepresentable, ColorSpace {
 
-    let whitePoint: WhitePoint
+    public let whitePoint: WhitePoint
 
-    let name = "XYZ"
+    public let name = "XYZ"
 
-    let components = rectangularComponentInfo(name: "XYZ")
+    public let components = rectangularComponentInfo(name: "XYZ")
 }
 
 
@@ -81,9 +81,9 @@ struct XYZColorSpace: XYZColorSpaceRepresentable, ColorSpace {
 /// | [x]              | `[0, 1]` |
 /// | [y]              | `[0, 1]` |
 /// | [z]              | `[0, 1]` |
-struct XYZ: Color {
+public struct XYZ: Color {
 
-    func toSRGB() -> RGB {
+    public func toSRGB() -> RGB {
         to(rgbSpace: RGBColorSpaces.sRGB)
     }
 
@@ -101,8 +101,8 @@ struct XYZ: Color {
     let x: Float
     let y: Float
     let z: Float
-    let alpha: Float
-    let space: XYZColorSpace
+    public let alpha: Float
+    public let space: XYZColorSpace
 
     func adapt(toSpace space: XYZColorSpace) -> XYZ {
         adaptToM(space: space, m: CAT02_XYZ_TO_LMS, mi: CAT02_LMS_TO_XYZ)
@@ -119,7 +119,7 @@ struct XYZ: Color {
 
 extension XYZ {
 
-    func toLAB() -> LAB {
+    public func toLAB() -> LAB {
         func f(_ t: Float) -> Float {
             t > CIE_E ? (cbrt(t)) : ((t * CIE_K + 16) / 116)
         }
@@ -140,7 +140,7 @@ extension XYZ {
 
 extension XYZ {
 
-    func toLUV() -> LUV {
+    public func toLUV() -> LUV {
         let wp = space.whitePoint.chromaticity
         let denominator = x + 15.0 * y + 3.0 * z
         let uPrime = denominator == 0.0 ? 0.0 : (4 * x) / denominator

@@ -29,3 +29,10 @@ extension Float {
         return pow(abs(self), p) * sign
     }
 }
+
+extension Double {
+
+    var normalizeDeg: Double {
+        (self.truncatingRemainder(dividingBy: 360.0) + 360.0).truncatingRemainder(dividingBy: 360.0)
+    }
+}

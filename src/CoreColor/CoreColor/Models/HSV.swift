@@ -18,13 +18,13 @@ import Foundation
  * | [s]            | saturation                                | `[0, 1]`   |
  * | [v]            | value                                     | `[0, 1]`   |
  */
-struct HSV: HueColor {
+public struct HSV: HueColor {
 
     let h: Float
     let s: Float
     let v: Float
 
-    func toSRGB() -> RGB {
+    public func toSRGB() -> RGB {
         guard s >= 1e-7 else {
             return RGB(r: self.v, g: self.v, b: self.v, alpha: self.alpha, space: RGBColorSpaces.sRGB)
         }
@@ -41,7 +41,7 @@ struct HSV: HueColor {
         return RGB(r: f(5), g: f(3), b: f(1), alpha: self.alpha, space: RGBColorSpaces.sRGB)
     }
 
-    func toHSL() -> HSL {
+    public func toHSL() -> HSL {
         let vmin = max(v, 0.01)
         let l = ((2 - s) * v) / 2
         let lmin = (2 - s) * vmin
@@ -49,9 +49,9 @@ struct HSV: HueColor {
         return HSL(h: h, s: sl, l: l, alpha: alpha)
     }
 
-    let alpha: Float
+    public let alpha: Float
 
-    var space: HSVColorSpace {
+    public var space: HSVColorSpace {
         Self.colorspace
     }
 }
@@ -60,10 +60,11 @@ func polarComponentInfo(name: String) -> [ColorComponentInfo] {
     Array(name).map { ColorComponentInfo(name: String($0), isPolar: $0 == "H") } + [ColorComponentInfo(name: "alpha", isPolar: false)]
 }
 
-struct HSVColorSpace: ColorSpace {
-    let name = "HSV"
+public struct HSVColorSpace: ColorSpace {
+
+    public let name = "HSV"
     
-    let components: [ColorComponentInfo] = polarComponentInfo(name: "HSV")
+    public let components: [ColorComponentInfo] = polarComponentInfo(name: "HSV")
 }
 
 extension HSV {

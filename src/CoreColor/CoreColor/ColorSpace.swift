@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ColorSpace: Equatable {
+public protocol ColorSpace: Equatable {
 
 //    associatedtype T: Color
 
@@ -20,12 +20,12 @@ protocol ColorSpace: Equatable {
 
 extension ColorSpace  {
 
-    static func == (lhs: Self, rhs: Self) -> Bool {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.name == rhs.name && lhs.components == rhs.components
     }
 }
 
-struct ColorComponentInfo: Equatable {
+public struct ColorComponentInfo: Equatable {
 
     /// The name of this component.
     let name: String
@@ -35,7 +35,7 @@ struct ColorComponentInfo: Equatable {
     let isPolar: Bool
 }
 
-protocol WhitePointColorSpace: ColorSpace {
+public protocol WhitePointColorSpace: ColorSpace {
 
 //    associatedtype T: Color
 
@@ -45,7 +45,7 @@ protocol WhitePointColorSpace: ColorSpace {
 
 extension WhitePointColorSpace {
 
-    static func == (lhs: Self, rhs: Self) -> Bool {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.name == rhs.name && lhs.components == rhs.components && lhs.whitePoint == rhs.whitePoint
     }
 }

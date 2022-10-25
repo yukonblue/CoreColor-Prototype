@@ -23,16 +23,16 @@ protocol LABColorSpaceRepresentable: WhitePointColorSpace {
     init(whitePoint: WhitePoint)
 }
 
-struct LABColorSpace: LABColorSpaceRepresentable {
+public struct LABColorSpace: LABColorSpaceRepresentable {
 
-    let whitePoint: WhitePoint
+    public let whitePoint: WhitePoint
 
-    let name: String = "LAB"
+    public let name: String = "LAB"
 
-    let components: [ColorComponentInfo] = rectangularComponentInfo(name: "LAB")
+    public let components: [ColorComponentInfo] = rectangularComponentInfo(name: "LAB")
 }
 
-enum LABColorSpaces {
+public enum LABColorSpaces {
 
     ///
     /// An [LAB] color space calculated relative to [Illuminant.D50]
@@ -58,13 +58,13 @@ enum LABColorSpaces {
  * | [a]        | green-red   | `[-100, 100]` |
  * | [b]        | blue-yellow | `[-100, 100]` |
  */
-struct LAB: Color {
+public struct LAB: Color {
 
     let l: Float
     let a: Float
     let b: Float
 
-    func toSRGB() -> RGB {
+    public func toSRGB() -> RGB {
         switch l {
         case 0.0:
             return RGB(r: 0.0, g: 0.0, b: 0.0, alpha: self.alpha, space: RGBColorSpaces.sRGB)
@@ -73,7 +73,7 @@ struct LAB: Color {
         }
     }
 
-    func toXYZ() -> XYZ {
+    public func toXYZ() -> XYZ {
         // http://www.brucelindbloom.com/Eqn_Lab_to_XYZ.html
         let labColorSpace = self.space
 
@@ -98,7 +98,7 @@ struct LAB: Color {
         return XYZ(x: xr * wp.X, y: yr * wp.Y, z: zr * wp.Z, alpha: self.alpha, space: xyzSpace)
     }
 
-    let alpha: Float
+    public let alpha: Float
 
-    let space: LABColorSpace
+    public let space: LABColorSpace
 }

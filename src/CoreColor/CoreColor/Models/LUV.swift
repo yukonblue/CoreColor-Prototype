@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct LUVColorSpace: WhitePointColorSpace {
+public struct LUVColorSpace: WhitePointColorSpace {
 
-    let whitePoint: WhitePoint
+    public let whitePoint: WhitePoint
 
-    let name: String = "LUV"
+    public let name: String = "LUV"
 
-    let components: [ColorComponentInfo] = rectangularComponentInfo(name: "LUV")
+    public let components: [ColorComponentInfo] = rectangularComponentInfo(name: "LUV")
 }
 
 enum LUVColorSpaces {
@@ -40,19 +40,19 @@ enum LUVColorSpaces {
  * | [u]        |              | `[-100, 100]` |
  * | [v]        |              | `[-100, 100]` |
  */
-struct LUV: Color {
+public struct LUV: Color {
 
     let l: Float
     let u: Float
     let v: Float
-    let alpha: Float
-    let space: LUVColorSpace
+    public let alpha: Float
+    public let space: LUVColorSpace
 
-    func toSRGB() -> RGB {
+    public func toSRGB() -> RGB {
         l == 0.0 ? RGB(r: 0.0, g: 0.0, b: 0.0, alpha: self.alpha, space: RGBColorSpaces.sRGB) : toXYZ().toSRGB()
     }
 
-    func toXYZ() -> XYZ {
+    public func toXYZ() -> XYZ {
         let xyzSpace = XYZColorSpace(whitePoint: space.whitePoint)
         // http://www.brucelindbloom.com/Eqn_Luv_to_XYZ.html
         guard l != 0.0 else {

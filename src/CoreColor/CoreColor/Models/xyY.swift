@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct xyY: Equatable {
+public struct xyY: Equatable {
 
     let x: Float
     let y: Float

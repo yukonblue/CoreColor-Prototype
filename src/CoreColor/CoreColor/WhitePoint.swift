@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct WhitePoint: Equatable {
+public struct WhitePoint: Equatable {
 
     let name: String
     let chromaticity: xyY
 }
 
-struct Illuminant {
+public struct Illuminant {
 
     ///
     /// CIE 1931 2° Standard Illuminant A

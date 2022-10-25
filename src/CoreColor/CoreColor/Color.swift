@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Color {
+public protocol Color {
 
     associatedtype AssociatedColorSpace: ColorSpace
 
@@ -32,27 +32,27 @@ protocol Color {
 
 extension Color {
 
-    func toHSL() -> HSL {
+    public func toHSL() -> HSL {
         self.toSRGB().toHSL()
     }
 
-    func toHSV() -> HSV {
+    public func toHSV() -> HSV {
         self.toSRGB().toHSV()
     }
 
-    func toCMYK() -> CMYK {
+    public func toCMYK() -> CMYK {
         self.toSRGB().toCMYK()
     }
 
-    func toXYZ() -> XYZ {
+    public func toXYZ() -> XYZ {
         self.toSRGB().toXYZ()
     }
 
-    func toLAB() -> LAB {
+    public func toLAB() -> LAB {
         self.toXYZ().toLAB()
     }
 
-    func toLUV() -> LUV {
+    public func toLUV() -> LUV {
         self.toXYZ().toLUV()
     }
 }

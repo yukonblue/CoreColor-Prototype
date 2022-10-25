@@ -10,13 +10,13 @@ import simd
 
 /// The RGB color model, using the [sRGB][SRGB] color space by default.
 
-struct RGB: Color {
+public struct RGB: Color {
 
     let r: Float
     let g: Float
     let b: Float
-    let alpha: Float
-    let space: RGBColorSpace
+    public let alpha: Float
+    public let space: RGBColorSpace
 
     ///
     /// The red channel scaled to [0, 255].
@@ -46,14 +46,14 @@ struct RGB: Color {
         Int(alpha * 255)
     }
 
-    func toSRGB() -> RGB {
+    public func toSRGB() -> RGB {
         self.convert(toRGBColorSpace: RGBColorSpaces.sRGB)
     }
 }
 
 extension RGB {
 
-    func toHSL() -> HSL {
+    public func toHSL() -> HSL {
         srgbHueMinMaxChroma { (h, mn, mx, chroma) -> HSL in
             let h = Float(h)
             let mn = Float(mn)
@@ -72,7 +72,7 @@ extension RGB {
         }
     }
 
-    func toHSV() -> HSV {
+    public func toHSV() -> HSV {
         srgbHueMinMaxChroma { (h, _, mx, chroma) -> HSV in
             let h = Float(h)
             let mx = Float(mx)
@@ -83,7 +83,7 @@ extension RGB {
         }
     }
 
-    func toXYZ() -> XYZ {
+    public func toXYZ() -> XYZ {
         let f = self.space.transferFunctions.eotf
 
         let v = self.space.matrixToXyz * simd_float3(f(self.r), f(self.g), f(self.b))
@@ -91,7 +91,7 @@ extension RGB {
         return XYZ(x: v.x, y: v.y, z: v.z, alpha: self.alpha, space: XYZColorSpace(whitePoint: self.space.whitePoint))
     }
 
-    func toCMYK() -> CMYK {
+    public func toCMYK() -> CMYK {
         let k = 1 - max(r, b, g)
         if k == 1.0 {
             return CMYK(c: 0, m: 0, y: 0, k: k, alpha: self.alpha)
@@ -100,13 +100,6 @@ extension RGB {
         let m = (1 - g - k) / (1 - k)
         let y = (1 - b - k) / (1 - k)
         return CMYK(c: c, m: m, y: y, k:k, alpha: self.alpha)
-    }
-}
-
-extension Double {
-
-    var normalizeDeg: Double {
-        (self.truncatingRemainder(dividingBy: 360.0) + 360.0).truncatingRemainder(dividingBy: 360.0)
     }
 }
 

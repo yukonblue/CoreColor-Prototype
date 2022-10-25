@@ -19,19 +19,19 @@ import Foundation
  * | [y]        | yellow      | `[0, 1]` |
  * | [k]        | key / black | `[0, 1]` |
  */
-struct CMYK: Color {
+public struct CMYK: Color {
 
     let c: Float
     let m: Float
     let y: Float
     let k: Float
-    let alpha: Float
+    public let alpha: Float
 
-    var space: CMYKColorSpace {
+    public var space: CMYKColorSpace {
         Self.colorspace
     }
 
-    func toSRGB() -> RGB {
+    public func toSRGB() -> RGB {
         let r = (1 - c) * (1 - k)
         let g = (1 - m) * (1 - k)
         let b = (1 - y) * (1 - k)
@@ -39,11 +39,11 @@ struct CMYK: Color {
     }
 }
 
-struct CMYKColorSpace: ColorSpace {
+public struct CMYKColorSpace: ColorSpace {
 
-    let name = "CMYK"
+    public let name = "CMYK"
 
-    let components: [ColorComponentInfo] = rectangularComponentInfo(name: "CMYK")
+    public let components: [ColorComponentInfo] = rectangularComponentInfo(name: "CMYK")
 }
 
 extension CMYK {

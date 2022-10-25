@@ -83,7 +83,7 @@ enum RGBColorSpaces {
     )
 }
 
-struct RGBColorSpace: RGBColorSpaceRepresentable {
+public struct RGBColorSpace: RGBColorSpaceRepresentable {
 
     init(name: String, whitePoint: WhitePoint, transferFunctions: RGBTransferFunctions, r: xyY, g: xyY, b: xyY) {
         self.name = name
@@ -102,17 +102,17 @@ struct RGBColorSpace: RGBColorSpaceRepresentable {
         matrixToXyz.inverse
     }
 
-    let components: [ColorComponentInfo] = rectangularComponentInfo(name: "RGB")
+    public let components: [ColorComponentInfo] = rectangularComponentInfo(name: "RGB")
 
-    let name: String
-    let whitePoint: WhitePoint
+    public let name: String
+    public let whitePoint: WhitePoint
     let transferFunctions: RGBTransferFunctions
-    
+
     let r: xyY
     let g: xyY
     let b: xyY
 
-    static func == (lhs: RGBColorSpace, rhs: RGBColorSpace) -> Bool {
+    public static func == (lhs: RGBColorSpace, rhs: RGBColorSpace) -> Bool {
         lhs.name == rhs.name && lhs.components == rhs.components && lhs.whitePoint == rhs.whitePoint &&
         lhs.matrixFromXyz == rhs.matrixFromXyz && lhs.matrixToXyz == rhs.matrixToXyz &&
         lhs.transferFunctions.signature == rhs.transferFunctions.signature &&
