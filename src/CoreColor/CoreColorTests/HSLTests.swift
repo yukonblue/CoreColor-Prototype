@@ -30,6 +30,12 @@ class HSLTests: ColorTestCase {
         } check: { converted, _ in
             try assertIsSameRGB(converted, rgb)
         }
+
+        try check_conversion(hsl) { (src: HSL) -> RGB in
+            rgb.space.convert(from: hsl)
+        } check: { converted, _ in
+            try assertIsSameRGB(converted, rgb)
+        }
     }
 
     func test_HSL_to_XYZ() throws {

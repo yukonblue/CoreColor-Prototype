@@ -7,11 +7,17 @@
 
 public struct LUVColorSpace: WhitePointColorSpace {
 
+    public typealias ColorType = LUV
+
     public let whitePoint: WhitePoint
 
     public let name: String = "LUV"
 
     public let components: [ColorComponentInfo] = rectangularComponentInfo(name: "LUV")
+
+    public func convert<T>(from srcColor: T) -> LUV where T : Color {
+        srcColor.toLUV()
+    }
 }
 
 enum LUVColorSpaces {

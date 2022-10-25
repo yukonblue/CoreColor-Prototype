@@ -121,11 +121,23 @@ class RGBTests: ColorTestCase {
         } check: { converted, _ in
             try assertIsSameRGB(converted, dst)
         }
+
+        try check_conversion(src) { (src: RGB) -> RGB in
+            dst.space.convert(from: src)
+        } check: { converted, _ in
+            try assertIsSameRGB(converted, dst)
+        }
     }
 
     private func check_RGB_to_LUV(rgb: RGB, luv: LUV) throws {
         try check_conversion(rgb) { (src: RGB) -> LUV in
             src.toLUV()
+        } check: { converted, _ in
+            try assertIsSameLUV(converted, luv)
+        }
+
+        try check_conversion(rgb) { (src: RGB) -> LUV in
+            luv.space.convert(from: rgb)
         } check: { converted, _ in
             try assertIsSameLUV(converted, luv)
         }
@@ -137,11 +149,23 @@ class RGBTests: ColorTestCase {
         } check: { converted, _ in
             try assertIsSameHSV(converted, hsv)
         }
+
+        try check_conversion(rgb) { (src: RGB) -> HSV in
+            hsv.space.convert(from: rgb)
+        } check: { converted, _ in
+            try assertIsSameHSV(converted, hsv)
+        }
     }
 
     private func check_RGB_to_HSL(rgb: RGB, hsl: HSL) throws {
         try check_conversion(rgb) { (src: RGB) -> HSL in
             src.toHSL()
+        } check: { converted, _ in
+            try assertIsSameHSL(converted, hsl)
+        }
+
+        try check_conversion(rgb) { (src: RGB) -> HSL in
+            hsl.space.convert(from: rgb)
         } check: { converted, _ in
             try assertIsSameHSL(converted, hsl)
         }
@@ -153,11 +177,23 @@ class RGBTests: ColorTestCase {
         } check: { converted, _ in
             try assertIsSameXYZ(converted, xyz)
         }
+
+        try check_conversion(rgb) { (src: RGB) -> XYZ in
+            xyz.space.convert(from: rgb)
+        } check: { converted, _ in
+            try assertIsSameXYZ(converted, xyz)
+        }
     }
 
     private func check_RGB_to_CMYK(rgb: RGB, cmyk: CMYK) throws {
         try check_conversion(rgb) { (src: RGB) -> CMYK in
             src.toCMYK()
+        } check: { converted, _ in
+            try assertIsSameCMYK(converted, cmyk)
+        }
+
+        try check_conversion(rgb) { (src: RGB) -> CMYK in
+            cmyk.space.convert(from: rgb)
         } check: { converted, _ in
             try assertIsSameCMYK(converted, cmyk)
         }

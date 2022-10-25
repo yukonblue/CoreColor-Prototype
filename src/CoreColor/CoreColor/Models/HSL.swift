@@ -82,9 +82,15 @@ public struct HSL: HueColor {
 
 public struct HSLColorSpace: ColorSpace {
 
+    public typealias ColorType = HSL
+
     public let name = "HSL"
 
     public let components: [ColorComponentInfo] = polarComponentInfo(name: "HSL")
+
+    public func convert<T>(from srcColor: T) -> HSL where T : Color {
+        srcColor.toHSL()
+    }
 }
 
 extension HSL {

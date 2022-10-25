@@ -56,9 +56,15 @@ public struct HSV: HueColor {
 
 public struct HSVColorSpace: ColorSpace {
 
+    public typealias ColorType = HSV
+
     public let name = "HSV"
     
     public let components: [ColorComponentInfo] = polarComponentInfo(name: "HSV")
+
+    public func convert<T>(from srcColor: T) -> HSV where T : Color {
+        srcColor.toHSV()
+    }
 }
 
 extension HSV {

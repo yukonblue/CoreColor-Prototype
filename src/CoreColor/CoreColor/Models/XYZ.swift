@@ -58,11 +58,17 @@ public enum XYZColorSpaces {
 
 public struct XYZColorSpace: XYZColorSpaceRepresentable, ColorSpace {
 
+    public typealias ColorType = XYZ
+
     public let whitePoint: WhitePoint
 
     public let name = "XYZ"
 
     public let components = rectangularComponentInfo(name: "XYZ")
+
+    public func convert<T>(from srcColor: T) -> XYZ where T : Color {
+        srcColor.toXYZ()
+    }
 }
 
 

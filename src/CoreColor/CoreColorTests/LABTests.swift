@@ -30,6 +30,12 @@ class LABTests: ColorTestCase {
         } check: { converted, _ in
             try assertIsSameXYZ(converted, xyz)
         }
+
+        try check_conversion(lab) { (src: LAB) -> XYZ in
+            xyz.space.convert(from: lab)
+        } check: { converted, _ in
+            try assertIsSameXYZ(converted, xyz)
+        }
     }
 
     func test_LAB_to_RGB() throws {

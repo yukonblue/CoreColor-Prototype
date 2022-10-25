@@ -30,6 +30,12 @@ class LUVTests: ColorTestCase {
         } check: { converted, _ in
             try assertIsSameXYZ(converted, xyz)
         }
+
+        try check_conversion(luv) { (src: LUV) -> XYZ in
+            xyz.space.convert(from: luv)
+        } check: { converted, _ in
+            try assertIsSameXYZ(converted, xyz)
+        }
     }
 
     func test_LUV_to_RGB() throws {

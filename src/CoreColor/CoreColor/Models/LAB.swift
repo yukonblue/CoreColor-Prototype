@@ -12,11 +12,17 @@ protocol LABColorSpaceRepresentable: WhitePointColorSpace {
 
 public struct LABColorSpace: LABColorSpaceRepresentable {
 
+    public typealias ColorType = LAB
+
     public let whitePoint: WhitePoint
 
     public let name: String = "LAB"
 
     public let components: [ColorComponentInfo] = rectangularComponentInfo(name: "LAB")
+
+    public func convert<T>(from srcColor: T) -> LAB where T : Color {
+        srcColor.toLAB()
+    }
 }
 
 public enum LABColorSpaces {

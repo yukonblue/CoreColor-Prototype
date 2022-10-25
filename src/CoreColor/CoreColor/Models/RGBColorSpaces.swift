@@ -84,6 +84,15 @@ enum RGBColorSpaces {
 
 public struct RGBColorSpace: RGBColorSpaceRepresentable {
 
+    public func convert<T>(from srcColor: T) -> RGB where T : Color {
+        if let srcRGBColor = srcColor as? RGB {
+            return srcRGBColor.convert(toRGBColorSpace: self)
+        }
+        return srcColor.toXYZ().to(rgbSpace: self)
+    }
+
+    public typealias ColorType = RGB
+
     init(name: String, whitePoint: WhitePoint, transferFunctions: RGBTransferFunctions, r: xyY, g: xyY, b: xyY) {
         self.name = name
         self.whitePoint = whitePoint

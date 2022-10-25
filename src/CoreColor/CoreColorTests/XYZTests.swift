@@ -95,6 +95,12 @@ class XYZTests: ColorTestCase {
         } check: { converted, _ in
             try assertIsSameLUV(converted, luv)
         }
+
+        try check_conversion(xyz) { (src: XYZ) -> LUV in
+            luv.space.convert(from: xyz)
+        } check: { converted, _ in
+            try assertIsSameLUV(converted, luv)
+        }
     }
 
     func check_XYZ_to_RGB(xyz: XYZ, rgb: RGB) throws {
@@ -103,11 +109,23 @@ class XYZTests: ColorTestCase {
         } check: { converted, _ in
             try assertIsSameRGB(converted, rgb)
         }
+
+        try check_conversion(xyz) { (src: XYZ) -> RGB in
+            rgb.space.convert(from: xyz)
+        } check: { converted, _ in
+            try assertIsSameRGB(converted, rgb)
+        }
     }
 
     func check_XYZ_to_LAB(xyz: XYZ, lab: LAB) throws {
         try check_conversion(xyz) { (src: XYZ) -> LAB in
             src.toLAB()
+        } check: { converted, _ in
+            try assertIsSameLAB(converted, lab)
+        }
+
+        try check_conversion(xyz) { (src: XYZ) -> LAB in
+            lab.space.convert(from: xyz)
         } check: { converted, _ in
             try assertIsSameLAB(converted, lab)
         }

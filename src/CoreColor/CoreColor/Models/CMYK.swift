@@ -39,9 +39,15 @@ public struct CMYK: Color {
 
 public struct CMYKColorSpace: ColorSpace {
 
+    public typealias ColorType = CMYK
+
     public let name = "CMYK"
 
     public let components: [ColorComponentInfo] = rectangularComponentInfo(name: "CMYK")
+
+    public func convert<T>(from srcColor: T) -> CMYK where T : Color {
+        srcColor.toCMYK()
+    }
 }
 
 extension CMYK {

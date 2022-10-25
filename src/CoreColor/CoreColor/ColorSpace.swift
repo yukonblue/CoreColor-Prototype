@@ -7,9 +7,13 @@
 
 public protocol ColorSpace: Equatable {
 
+    associatedtype ColorType: Color
+
     var name: String { get }
 
     var components: [ColorComponentInfo] { get }
+
+    func convert<T: Color>(from: T) -> ColorType
 }
 
 extension ColorSpace  {
