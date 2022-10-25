@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		170B9BD0290815E20011D65B /* FloatingPoint+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170B9BCF290815E20011D65B /* FloatingPoint+Utilities.swift */; };
 		170B9BD2290818F90011D65B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170B9BD1290818F90011D65B /* Constants.swift */; };
+		170B9BD429081AF70011D65B /* ColorComponentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170B9BD329081AF70011D65B /* ColorComponentInfo.swift */; };
+		170B9BD629081B180011D65B /* WhitePointColorSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170B9BD529081B180011D65B /* WhitePointColorSpace.swift */; };
 		1711724428FC56ED00E5C70D /* HSLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1711724328FC56ED00E5C70D /* HSLTests.swift */; };
 		171A376D28FD82C800DAE73B /* HSVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A376C28FD82C800DAE73B /* HSVTests.swift */; };
 		171A376F28FD843900DAE73B /* XYZTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171A376E28FD843900DAE73B /* XYZTests.swift */; };
@@ -51,6 +53,8 @@
 /* Begin PBXFileReference section */
 		170B9BCF290815E20011D65B /* FloatingPoint+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloatingPoint+Utilities.swift"; sourceTree = "<group>"; };
 		170B9BD1290818F90011D65B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		170B9BD329081AF70011D65B /* ColorComponentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorComponentInfo.swift; sourceTree = "<group>"; };
+		170B9BD529081B180011D65B /* WhitePointColorSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhitePointColorSpace.swift; sourceTree = "<group>"; };
 		1711724328FC56ED00E5C70D /* HSLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLTests.swift; sourceTree = "<group>"; };
 		171A376C28FD82C800DAE73B /* HSVTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSVTests.swift; sourceTree = "<group>"; };
 		171A376E28FD843900DAE73B /* XYZTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XYZTests.swift; sourceTree = "<group>"; };
@@ -128,6 +132,8 @@
 				17B69E6328F98B6F002F9992 /* WhitePoint.swift */,
 				170B9BCF290815E20011D65B /* FloatingPoint+Utilities.swift */,
 				170B9BD1290818F90011D65B /* Constants.swift */,
+				170B9BD329081AF70011D65B /* ColorComponentInfo.swift */,
+				170B9BD529081B180011D65B /* WhitePointColorSpace.swift */,
 			);
 			path = CoreColor;
 			sourceTree = "<group>";
@@ -281,6 +287,7 @@
 				17B69E6E28F9A9A9002F9992 /* RGBInt.swift in Sources */,
 				17F9294F28FAFD330087CB29 /* HSL.swift in Sources */,
 				17B69E6828F98EC7002F9992 /* RGBColorspace.swift in Sources */,
+				170B9BD629081B180011D65B /* WhitePointColorSpace.swift in Sources */,
 				170B9BD0290815E20011D65B /* FloatingPoint+Utilities.swift in Sources */,
 				1750F906290036EF00A8BA93 /* LUV.swift in Sources */,
 				17B69E5D28F98963002F9992 /* ColorSpace.swift in Sources */,
@@ -290,6 +297,7 @@
 				17B69E6428F98B6F002F9992 /* WhitePoint.swift in Sources */,
 				17B69E6628F98DDE002F9992 /* RGBColorSpaces.swift in Sources */,
 				17B69E6228F98B10002F9992 /* xyY.swift in Sources */,
+				170B9BD429081AF70011D65B /* ColorComponentInfo.swift in Sources */,
 				17F9295128FB03580087CB29 /* HSV.swift in Sources */,
 				17F9295328FB09860087CB29 /* CMYK.swift in Sources */,
 				17B69E6A28F992A1002F9992 /* XYZ.swift in Sources */,
