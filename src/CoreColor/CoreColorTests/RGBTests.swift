@@ -199,3 +199,45 @@ class RGBTests: ColorTestCase {
         }
     }
 }
+
+/// test cases from https://www.w3.org/TR/css-color-5/#colorcontrast
+extension RGBTests {
+
+    static let sRGB_f5deb3 = RGB(r: 245.0 / 255.0, g: 222.0 / 255.0, b: 179.0 / 255.0, alpha: 1.0, space: RGBColorSpaces.sRGB)
+    static let sRGB_d2b48c = RGB(r: 210.0 / 255.0, g: 180.0 / 255.0, b: 140.0 / 255.0, alpha: 1.0, space: RGBColorSpaces.sRGB)
+    static let sRGB_a0522d = RGB(r: 160.0 / 255.0, g: 82.0 / 255.0, b: 45.0 / 255.0, alpha: 1.0, space: RGBColorSpaces.sRGB)
+    static let sRGB_b22222 = RGB(r: 178.0 / 255.0, g: 34.0 / 255.0, b: 34.0 / 255.0, alpha: 1.0, space: RGBColorSpaces.sRGB)
+
+    func testRelativeWcagLuminance() throws {
+        // #f5deb3
+        try checkRelativeWcagLuminance(rgb: Self.sRGB_f5deb3, expectedWcagLuminance: 0.749)
+
+        // d2b48c
+        try checkRelativeWcagLuminance(rgb: Self.sRGB_d2b48c, expectedWcagLuminance: 0.482)
+
+        // a0522d
+        try checkRelativeWcagLuminance(rgb: Self.sRGB_a0522d, expectedWcagLuminance: 0.137)
+
+        // b22222
+        try checkRelativeWcagLuminance(rgb: Self.sRGB_b22222, expectedWcagLuminance: 0.107)
+    }
+
+    func testWcagContrastRatio() throws {
+        // #f5deb3 vs. #d2b48c
+        try checkWcagContrastRadio(with: Self.sRGB_f5deb3, against: Self.sRGB_d2b48c, expectedContrastRatio: 1.501)
+
+        // #f5deb3 vs. #a0522d
+        try checkWcagContrastRadio(with: Self.sRGB_f5deb3, against: Self.sRGB_a0522d, expectedContrastRatio: 4.273)
+
+        // #f5deb3 vs. #b22222
+        try checkWcagContrastRadio(with: Self.sRGB_f5deb3, against: Self.sRGB_b22222, expectedContrastRatio: 5.081)
+    }
+
+    private func checkRelativeWcagLuminance(rgb: RGB, expectedWcagLuminance: Float) throws {
+        XCTAssertEqual(rgb.wcagLuminance, expectedWcagLuminance, accuracy: 1e-3)
+    }
+
+    private func checkWcagContrastRadio(with srcColor: RGB, against dstColor: RGB, expectedContrastRatio: Float) throws {
+        XCTAssertEqual(srcColor.wcagContrastRatio(against: dstColor), expectedContrastRatio, accuracy: 1e-3)
+    }
+}
