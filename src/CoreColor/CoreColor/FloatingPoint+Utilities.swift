@@ -36,3 +36,11 @@ extension Double {
         (self.truncatingRemainder(dividingBy: 360.0) + 360.0).truncatingRemainder(dividingBy: 360.0)
     }
 }
+
+extension FloatingPoint {
+
+    /// https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/coerce-at-least.html
+    func coerceAtLeast(minimumValue: Self) -> Self {
+        max(self, minimumValue)
+    }
+}

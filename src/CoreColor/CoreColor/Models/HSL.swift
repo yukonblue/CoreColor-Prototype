@@ -36,15 +36,6 @@ extension HueColor {
  * | [s]        | saturation                                | `[0, 1]`   |
  * | [l]        | lightness                                 | `[0, 1]`   |
  */
-
-extension FloatingPoint {
-
-    /// https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.ranges/coerce-at-least.html
-    func coerceAtLeast(minimumValue: Self) -> Self {
-        max(self, minimumValue)
-    }
-}
-
 public struct HSL: HueColor {
 
     let h: Float
