@@ -27,10 +27,6 @@ fileprivate let CAT02_XYZ_TO_LMS = matrix_float3x3(columns: (
 
 fileprivate let CAT02_LMS_TO_XYZ = CAT02_XYZ_TO_LMS.inverse
 
-internal func rectangularComponentInfo(name: String) -> [ColorComponentInfo] {
-    Array(name).map { ColorComponentInfo(name: String($0), isPolar: false) } + [ColorComponentInfo(name: "alpha", isPolar: false)]
-}
-
 protocol XYZColorSpaceRepresentable: WhitePointColorSpace {
 
     func chromaticAdaptationMatrix(for srcWp: xyY, xyzToLms: matrix_float3x3, lmsToXyz: matrix_float3x3) -> matrix_float3x3

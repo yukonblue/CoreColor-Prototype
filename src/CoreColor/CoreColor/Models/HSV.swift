@@ -56,10 +56,6 @@ public struct HSV: HueColor {
     }
 }
 
-func polarComponentInfo(name: String) -> [ColorComponentInfo] {
-    Array(name).map { ColorComponentInfo(name: String($0), isPolar: $0 == "H") } + [ColorComponentInfo(name: "alpha", isPolar: false)]
-}
-
 public struct HSVColorSpace: ColorSpace {
 
     public let name = "HSV"

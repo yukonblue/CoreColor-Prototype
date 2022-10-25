@@ -49,3 +49,11 @@ extension WhitePointColorSpace {
         lhs.name == rhs.name && lhs.components == rhs.components && lhs.whitePoint == rhs.whitePoint
     }
 }
+
+internal func rectangularComponentInfo(name: String) -> [ColorComponentInfo] {
+    Array(name).map { ColorComponentInfo(name: String($0), isPolar: false) } + [ColorComponentInfo(name: "alpha", isPolar: false)]
+}
+
+internal func polarComponentInfo(name: String) -> [ColorComponentInfo] {
+    Array(name).map { ColorComponentInfo(name: String($0), isPolar: $0 == "H") } + [ColorComponentInfo(name: "alpha", isPolar: false)]
+}
