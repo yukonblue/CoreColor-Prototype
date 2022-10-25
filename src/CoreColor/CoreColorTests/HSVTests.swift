@@ -5,8 +5,6 @@
 //  Created by x on 10/17/2022.
 //
 
-import Foundation
-
 import XCTest
 @testable import CoreColor
 

@@ -5,8 +5,6 @@
 //  Created by x on 10/25/2022.
 //
 
-import Foundation
-
 public protocol WhitePointColorSpace: ColorSpace {
 
     /// The white point that colors in this space are calculated relative to.

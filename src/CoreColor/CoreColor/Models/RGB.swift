@@ -5,7 +5,6 @@
 //  Created by x on 10/14/2022.
 //
 
-import Foundation
 import simd
 
 /// The RGB color model, using the [sRGB][SRGB] color space by default.

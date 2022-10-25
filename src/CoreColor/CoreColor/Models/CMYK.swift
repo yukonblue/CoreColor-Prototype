@@ -5,8 +5,6 @@
 //  Created by x on 10/15/2022.
 //
 
-import Foundation
-
 /**
  * A color in the CMYK (cyan, magenta, yellow, and key) color model.
  *

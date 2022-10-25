@@ -5,8 +5,6 @@
 //  Created by x on 10/25/2022.
 //
 
-import Foundation
-
 public struct ColorComponentInfo: Equatable {
 
     /// The name of this component.

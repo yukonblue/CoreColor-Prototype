@@ -5,8 +5,6 @@
 //  Created by x on 10/14/2022.
 //
 
-import Foundation
-
 struct RGBInt {
 
     var r: UInt8

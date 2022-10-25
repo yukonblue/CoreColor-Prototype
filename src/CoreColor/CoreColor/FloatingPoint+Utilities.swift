@@ -5,8 +5,6 @@
 //  Created by x on 10/25/2022.
 //
 
-import Foundation
-
 extension BinaryFloatingPoint {
 
     var double: Double {

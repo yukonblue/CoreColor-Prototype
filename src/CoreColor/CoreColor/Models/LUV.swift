@@ -5,8 +5,6 @@
 //  Created by x on 10/19/2022.
 //
 
-import Foundation
-
 public struct LUVColorSpace: WhitePointColorSpace {
 
     public let whitePoint: WhitePoint

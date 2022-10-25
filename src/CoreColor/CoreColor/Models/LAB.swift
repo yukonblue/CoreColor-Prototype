@@ -5,8 +5,6 @@
 //  Created by x on 10/15/2022.
 //
 
-import Foundation
-
 protocol LABColorSpaceRepresentable: WhitePointColorSpace {
 
     init(whitePoint: WhitePoint)

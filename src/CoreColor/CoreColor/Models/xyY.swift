@@ -5,8 +5,6 @@
 //  Created by x on 10/14/2022.
 //
 
-import Foundation
-
 public struct xyY: Equatable {
 
     let x: Float
