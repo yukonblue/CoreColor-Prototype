@@ -83,8 +83,7 @@ enum RGBColorSpaces {
     )
 }
 
-// TODO: Decide value-reference semantics on this
-class RGBColorSpace: RGBColorSpaceRepresentable {
+struct RGBColorSpace: RGBColorSpaceRepresentable {
 
     init(name: String, whitePoint: WhitePoint, transferFunctions: RGBTransferFunctions, r: xyY, g: xyY, b: xyY) {
         self.name = name
