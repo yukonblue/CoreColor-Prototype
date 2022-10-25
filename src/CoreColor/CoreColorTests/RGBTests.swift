@@ -10,6 +10,29 @@ import XCTest
 
 class RGBTests: ColorTestCase {
 
+    func testInitializationFromHexString() throws {
+        try checkRGB(withHex: "#000000", expected: (r: 0, g: 0, b: 0))
+        try checkRGB(withHex: "#FFFFFF", expected: (r: 255, g: 255, b: 255))
+
+        try checkRGB(withHex: "#f5deb3", expected: (r: 245, g: 222, b: 179))
+        try checkRGB(withHex: "#d2b48c", expected: (r: 210, g: 180, b: 140))
+        try checkRGB(withHex: "#a0522d", expected: (r: 160, g: 82, b: 45))
+        try checkRGB(withHex: "#b22222", expected: (r: 178, g: 34, b: 34))
+
+        XCTAssertNil(RGB(hex: ""))
+        XCTAssertNil(RGB(hex: "000000"))
+        XCTAssertNil(RGB(hex: "#00000O"))
+        XCTAssertNil(RGB(hex: "#ZZZZZZ"))
+        XCTAssertNil(RGB(hex: "#ABCDEFG"))
+    }
+
+    func checkRGB(withHex hex: String, expected: (r: Int, g: Int, b: Int)) throws {
+        let rgb = try XCTUnwrap(RGB(hex: hex))
+        XCTAssertEqual(rgb.redInt, expected.r)
+        XCTAssertEqual(rgb.greenInt, expected.g)
+        XCTAssertEqual(rgb.blueInt, expected.b)
+    }
+
     func test_RGB_to_HSV() throws {
         try check_RGB_to_HSV(rgb: RGB(r: 0.00, g: 0.00, b: 0.00, alpha: 1.0, space: RGBColorSpaces.sRGB),
                              hsv: HSV(h: Float.nan, s: 0.00, v: 0.00, alpha: 1.0))

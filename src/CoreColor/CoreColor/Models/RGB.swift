@@ -5,6 +5,7 @@
 //  Created by x on 10/14/2022.
 //
 
+import Foundation
 import simd
 
 /// The RGB color model, using the [sRGB][SRGB] color space by default.
@@ -16,6 +17,33 @@ public struct RGB: Color {
     let b: Float
     public let alpha: Float
     public let space: RGBColorSpace
+
+    init(r: Float, g: Float, b: Float, alpha: Float, space: RGBColorSpace) {
+        self.r = r
+        self.g = g
+        self.b = b
+        self.alpha = alpha
+        self.space = space
+    }
+
+    init?(hex: String, alpha: Float = 1.0, space: RGBColorSpace = RGBColorSpaces.sRGB) {
+        guard let regex = try? NSRegularExpression(pattern: "^#[A-Fa-f0-9]{6}$") else {
+            return nil
+        }
+        let matches = regex.matches(in: hex, range: NSMakeRange(0, hex.count))
+        guard matches.count == 1 else {
+            return nil
+        }
+        var rgb: UInt64 = 0
+        guard Scanner(string: String(hex.dropFirst())).scanHexInt64(&rgb) else {
+            return nil
+        }
+        self.r = Float((rgb & 0xFF0000) >> 16) / 255.0
+        self.g = Float((rgb & 0x00FF00) >> 8) / 255.0
+        self.b = Float(rgb & 0x0000FF) / 255.0
+        self.alpha = alpha
+        self.space = space
+    }
 
     ///
     /// The red channel scaled to [0, 255].
